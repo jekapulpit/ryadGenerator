@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfMath;
+using System.Net;
 
 namespace GENERATOR
 {
@@ -25,7 +25,18 @@ namespace GENERATOR
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "http://latex.codecogs.com/gif.latex?%5Csum_%7B%5Cinfty%7D%5E%7B0%7D%5Cfrac%7B1%7D%7Bn%5E2%7D";
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/test.gif");
+            }
+           
+        }
     }
+
     class Generator
     {
         bool IsFunctional;      //Является ли ряд функциональным
@@ -40,6 +51,7 @@ namespace GENERATOR
         double PowOfDominator;  //Степень многочлена в знаменателе
         double FullSum;         //Полная сумма ряда 
         double PartSum;         //Частичная сумма ряда
+        string path;            //Ссылка на изображение ряда (будет представлен в виде картикнки)
         public Generator()
         {
 
@@ -63,6 +75,17 @@ namespace GENERATOR
             return null;
         } //Нахождение области сходимости
     }
-
-
+    static class picdownloader
+    {
+        public static int index;  //количество картинок (или количество всех рядов)   
+        public static void getpic(string url)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/test.gif");
+            }
+        } // преобразование введенных пользователем 
+                                                 // данных в ссылку и скачивание изображения
+    }
 }
+

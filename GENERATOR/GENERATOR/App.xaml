@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:GENERATOR"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="loginback" 
+                     Color="#2B3238">
+        </SolidColorBrush>
+        <SolidColorBrush x:Key="ButtonAuth"
+                    Color="#EA4C87" >
+        </SolidColorBrush>
+            <SolidColorBrush x:Key="textboxes"
+                             Color="white"
+                             Opacity="0.1">
+            </SolidColorBrush>
     </Application.Resources>
 </Application>

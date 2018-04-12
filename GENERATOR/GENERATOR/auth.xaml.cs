@@ -23,5 +23,12 @@ namespace GENERATOR
         {
             InitializeComponent();
         }
+
+        private void But_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow newbee = new MainWindow();
+            newbee.Show();
+            this.Close(); 
+        }
     }
 }

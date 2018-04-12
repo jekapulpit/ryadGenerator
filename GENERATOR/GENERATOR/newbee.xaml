@@ -1,0 +1,43 @@
+﻿<Window x:Class="GENERATOR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GENERATOR"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30px">
+               
+            </RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        </Grid>
+      
+                <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
+                    <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
+                    <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
+                    <MenuItem Header="Генератор" Style="{DynamicResource Menuitems}"></MenuItem>
+                    <MenuItem Header="Правка" Style="{DynamicResource Menuitems}"></MenuItem>
+                    <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}"></MenuItem>
+                    <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
+                    
+        </Menu>
+        <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+            <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Новичок + Логин" Style="{DynamicResource Menuitems}"></MenuItem>
+            
+        </Menu>
+
+
+
+    </Grid>
+</Window>

@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GENERATOR"
+        xmlns:ControlLib="clr-namespace:ControlLib;assembly=NumericUpDown"  
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
 
-    <Grid>
+    </Window.Resources>
+    <Grid Background="{DynamicResource loginback }" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="30px">
-               
-            </RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
@@ -21,23 +22,33 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
         </Grid>
-      
-                <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
-                    <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
-                    <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
-                    <MenuItem Header="Генератор" Style="{DynamicResource Menuitems}"></MenuItem>
-                    <MenuItem Header="Правка" Style="{DynamicResource Menuitems}"></MenuItem>
-                    <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}"></MenuItem>
-                    <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
-                    
+        <Grid Grid.Row="1" Margin="0,5,0,190" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+
+        <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Генератор" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Правка" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
+
         </Menu>
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
             <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Новичок + Логин" Style="{DynamicResource Menuitems}"></MenuItem>
-            
+
         </Menu>
-
-
-
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,2,0,167" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 1:</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,27,406,143"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Укажите характеристики ряда:</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,51,406,119"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена числителя -</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,75,406,95"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена знаменателя -</Label>
+        <ControlLib:NumericUpDown Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
+        <ControlLib:NumericUpDown Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" Height="20"/>
     </Grid>
 </Window>

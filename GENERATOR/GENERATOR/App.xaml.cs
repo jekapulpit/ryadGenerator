@@ -6,12 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Net;
-
+using System.Data.SqlClient;
 namespace GENERATOR
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
+    /// 
+     
     public partial class App : Application
     {
     }

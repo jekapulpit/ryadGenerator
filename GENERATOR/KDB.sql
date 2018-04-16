@@ -1,3 +1,4 @@
+
 drop database D_GENERATOR
 create database D_GENERATOR;
 use [D_GENERATOR];

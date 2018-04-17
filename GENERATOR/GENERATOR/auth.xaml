@@ -52,7 +52,7 @@
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
-                            
+
                             <ColorAnimation Duration="0:0:0.3"
                                             Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                                           
                                             To="White">
@@ -63,7 +63,7 @@
                 <EventTrigger RoutedEvent="MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
-                            
+
                             <ColorAnimation Duration="0:0:0.5"
                                             Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                             
                                             To="#EA4C87">
@@ -75,7 +75,7 @@
         </Style>
         <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 2 / СТИЛЬ ДЛЯ ЛЭЙБЛА -->
     </Window.Resources>
- 
+
     <Grid>
         <Button x:Name="But" Style="{DynamicResource reg}" Content="LOG IN"  Margin="0,271,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  FontSize="20" FontFamily="Franklin Gothic Demi" Height="54" Width="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Cursor="Hand" Click="But_Click"  >
 
@@ -87,6 +87,7 @@
 
         </TextBox>
         <Label Content="REGISTER" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Width="78" Height="31" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="15" Cursor="Hand" MouseDown="Label_MouseDown"/>
+        <Label  x:Name="validate" Visibility="Hidden" Content="Неверный логин и/или пароль" HorizontalAlignment="Center" Margin="296,135,296,0" VerticalAlignment="Top" Width="200" Height="20" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="10"/>
 
     </Grid>
 </Window>

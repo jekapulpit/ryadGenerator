@@ -24,6 +24,10 @@ namespace GENERATOR
         public register()
         {
             InitializeComponent();
+            Log.BorderBrush = null;
+            Pass.BorderBrush = null;
+            Conf.BorderBrush = null;
+            Confirm.Opacity = 0;
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
@@ -45,16 +49,32 @@ namespace GENERATOR
             {
                 MessageBox.Show("Коннектион инпосебле" + e);
             }
-             
+           
              
 
             SqlCommand AddUser = thisConnection.CreateCommand();
             AddUser.CommandText = "insert into USERS (USERNAME, PASSWORD_D, USERTYPE) values('" + Log.Text + "', '" + Pass.Text.GetHashCode().ToString() + "', 'PRO')";
-
             SqlDataReader R = AddUser.ExecuteReader();
             auth auth = new auth();
             auth.Show();
             this.Close();
+        }
+
+        private void Conf_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Conf.Text != Pass.Text)
+            {
+                Log.BorderBrush = new SolidColorBrush(Colors.Red);
+                Pass.BorderBrush = new SolidColorBrush(Colors.Red);
+                Conf.BorderBrush = new SolidColorBrush(Colors.Red);
+                Confirm.Opacity = 1;
+            }
+            else {
+                Log.BorderBrush = null;
+                Pass.BorderBrush = null;
+                Conf.BorderBrush = null;
+                Confirm.Opacity =  0;
+            }
         }
     }
 }

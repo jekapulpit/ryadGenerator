@@ -71,10 +71,19 @@ namespace GENERATOR
         } // преобразование введенных пользователем 
                                                  // данных в ссылку и скачивание изображения
     }
-    class USER
+    public class USER : DependencyObject
     {
-        string username;
-        string password;
+        public  static  readonly DependencyProperty usernameProperty = DependencyProperty.Register("username", typeof(string), typeof(USER));
+      
+        public string username
+        {
+            get { return (string)GetValue(usernameProperty); }
+            set {SetValue(usernameProperty, value); }
+        }
+
+        public string password { get; set; }
+       
+       
         int lvl;                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
         public USER(string Username, string Password, int Lvl)
         {
@@ -86,6 +95,14 @@ namespace GENERATOR
         {
             return 0;
         }
+        private static bool PasswordValidate(object value)
+        {
+            string curr = (string)value;
+            if (curr.Length < 6) return false;
+            return true; 
+        }
+         
+
 
     }
     class Test

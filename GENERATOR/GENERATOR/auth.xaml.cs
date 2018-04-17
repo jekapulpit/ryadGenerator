@@ -23,6 +23,8 @@ namespace GENERATOR
     public partial class auth : Window
     {
         SqlConnection thisConnection;
+
+        USER CurrentUser;
         public auth()
         {
             InitializeComponent();
@@ -45,23 +47,43 @@ namespace GENERATOR
 
 
             SqlCommand AddUser = thisConnection.CreateCommand();
-            AddUser.CommandText = "select USERNAME, PASSWORD_D from USERS";
+            AddUser.CommandText = "select * from USERS";
 
             SqlDataReader R = AddUser.ExecuteReader();
             bool match = false;  
              
             while (R.Read())
             {
-                if ((string)R.GetValue(0) == Log.Text && (string)R.GetValue(1) == Pass.Text.GetHashCode().ToString()) match = true;
+                if ((string)R.GetValue(0) == Log.Text && (string)R.GetValue(1) == Pass.Text.GetHashCode().ToString()) { match = true;
+
+                    int lvl;
+                    switch (R.GetValue(2))
+                    {
+                        case "NEW": lvl = 1; break;
+                        case "MEDIUM": lvl = 2; break;
+                        case "PRO": lvl = 3; break;
+                        default: lvl = 1;break;
+                    }  
+                   CurrentUser = new USER(Log.Text, Pass.Text.GetHashCode().ToString(), lvl);
+
+                }
             }
             if (match)
             {
-                MainWindow newbee = new MainWindow();
+                MainWindow newbee = new MainWindow();           
+                newbee.Resources.Add("CurrentUser", CurrentUser.username);
                 newbee.Show();
                 this.Close();
             }
-             
-           
+            else
+            {
+                 Log.BorderBrush= new SolidColorBrush(Colors.Red);
+                 Pass.BorderBrush = new SolidColorBrush(Colors.Red);
+                 validate.Visibility = Visibility.Visible;
+            }
+
+
+
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)

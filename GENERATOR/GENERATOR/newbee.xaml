@@ -40,8 +40,9 @@
 
         </Menu>
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+            <MenuItem Header="{DynamicResource CurrentUser}" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}"></MenuItem>
-            <MenuItem Header="Новичок + Логин" Style="{DynamicResource Menuitems}"></MenuItem>
+            
 
         </Menu>
         <Label Grid.Row="1" Grid.Column="0" Margin="20,2,0,167" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 1:</Label>

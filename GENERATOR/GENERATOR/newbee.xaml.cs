@@ -21,6 +21,8 @@ namespace GENERATOR
     /// </summary>
     public partial class MainWindow : Window
     {
+        public USER CurrentUser;
+         
         public MainWindow()
         {
             InitializeComponent();

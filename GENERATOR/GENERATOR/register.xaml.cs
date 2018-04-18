@@ -24,6 +24,8 @@ namespace GENERATOR
         public register()
         {
             InitializeComponent();
+           
+            
             Log.BorderBrush = null;
             Pass.BorderBrush = null;
             Conf.BorderBrush = null;
@@ -37,7 +39,36 @@ namespace GENERATOR
             this.Close();
         }
 
-        private void But_Click(object sender, RoutedEventArgs e)
+
+        private bool validate(object sender, TextCompositionEventArgs e)
+        {
+            if (Conf.Password != Pass.Password)
+            {
+
+                Pass.BorderBrush = new SolidColorBrush(Colors.Red);
+                Conf.BorderBrush = new SolidColorBrush(Colors.Red);
+                Confirm.Opacity = 1;
+              
+                return false;
+            }
+            else if (Pass.Password.Length < 6)
+            {
+                Pass.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                Log.BorderBrush = null;
+                Pass.BorderBrush = null;
+                Conf.BorderBrush = null;
+                Confirm.Opacity = 0;
+              
+                return true;
+               
+            }
+        }
+
+        private void ButReg_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -49,31 +80,36 @@ namespace GENERATOR
             {
                 MessageBox.Show("Коннектион инпосебле" + e);
             }
-           
-             
-
-            SqlCommand AddUser = thisConnection.CreateCommand();
-            AddUser.CommandText = "insert into USERS (USERNAME, PASSWORD_D, USERTYPE) values('" + Log.Text + "', '" + Pass.Text.GetHashCode().ToString() + "', 'PRO')";
-            SqlDataReader R = AddUser.ExecuteReader();
-            auth auth = new auth();
-            auth.Show();
-            this.Close();
-        }
-
-        private void Conf_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (Conf.Text != Pass.Text)
+            if (validate(this, null))
             {
-                Log.BorderBrush = new SolidColorBrush(Colors.Red);
-                Pass.BorderBrush = new SolidColorBrush(Colors.Red);
-                Conf.BorderBrush = new SolidColorBrush(Colors.Red);
-                Confirm.Opacity = 1;
-            }
-            else {
-                Log.BorderBrush = null;
-                Pass.BorderBrush = null;
-                Conf.BorderBrush = null;
-                Confirm.Opacity =  0;
+
+                SqlCommand CheckUser = thisConnection.CreateCommand();
+                CheckUser.CommandText = "Select username from USERS";
+                SqlDataReader R1 = CheckUser.ExecuteReader();
+                bool match = false;
+                while (R1.Read())
+                {
+                    if (Log.Text == (string)R1.GetValue(0))
+                        match = true;
+                }
+                R1.Close();
+
+                if (!match)
+                {
+
+                    SqlCommand AddUser = thisConnection.CreateCommand();
+                    AddUser.CommandText = "insert into USERS (USERNAME, PASSWORD_D, USERTYPE) values('" + Log.Text + "', '" + Pass.Password.GetHashCode().ToString() + "', 'PRO')";
+                    SqlDataReader R = AddUser.ExecuteReader();
+                    auth auth = new auth();
+                    auth.Show();
+
+                    this.Close();
+                }
+                else
+                {
+                    LoginCheck.Opacity = 1;
+                    Log.BorderBrush = new SolidColorBrush(Colors.Red);
+                }
             }
         }
     }

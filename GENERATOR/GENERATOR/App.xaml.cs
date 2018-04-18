@@ -36,6 +36,9 @@ namespace GENERATOR
         DateTime date;          //Дата создания ряда
         public Generator()
         {
+           
+             
+             
 
         }   //Конструктор
         public bool CheckConverge()
@@ -58,10 +61,24 @@ namespace GENERATOR
         {
             return null;
         } //Нахождение области сходимости
+        
+         
+         
     }
     static class picdownloader
     {
+        public static  string starturl = "https://latex.codecogs.com/gif.latex?%5Csum_%7B1%7D%5E%7B%5Cinfty%7D";
+        public static string drob = "%5Cfrac";
+
+        public static string start = "%7B";
+        public static string end = "%7D";
+        public static string stepen = "%5E";
         public static int index;  //количество картинок (или количество всех рядов)   
+        public static string GetUrl(  )
+        {
+            string result = starturl;
+            return result;
+        } 
         public static void getpic(string url)
         {
             using (WebClient client = new WebClient())

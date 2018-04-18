@@ -76,22 +76,23 @@
         <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 2 / СТИЛЬ ДЛЯ ЛЭЙБЛА -->
     </Window.Resources>
 
-    <Grid>
-        <Button x:Name="ButReg" Style="{DynamicResource reg}" Content="REGISTER"  Margin="0,271,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  FontSize="20" FontFamily="Franklin Gothic Demi" Height="54" Width="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Cursor="Hand" Click="But_Click"  >
+    <Grid >
+        <Button x:Name="ButReg" Style="{DynamicResource reg}" Content="REGISTER"  Margin="0,271,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  FontSize="20" FontFamily="Franklin Gothic Demi" Height="54" Width="200" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Cursor="Hand" Click="ButReg_Click"   >
 
         </Button>
+        <PasswordBox x:Name="Pass" HorizontalAlignment="Center" Height="32" Margin="0,160,0,0"  VerticalAlignment="Top" Width="208" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" Password="password"   >
+
+        </PasswordBox>
+       
         <TextBox   x:Name="Log" HorizontalAlignment="Center" Height="32" Margin="0,122,0,0" TextWrapping="Wrap" Text="Login" VerticalAlignment="Top" Width="208" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5">
 
         </TextBox>
-        <TextBox x:Name="Pass" HorizontalAlignment="Center" Height="32" Margin="0,160,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="208" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" >
-
-        </TextBox>
+       
         
 
         <Label Content="LOG IN" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Width="55" Height="31" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="15" Cursor="Hand" MouseDown="Label_MouseDown"/>
         <Label x:Name="Confirm" Opacity="0" Content="Пароли не совпадают" HorizontalAlignment="Center" Margin="296,228,296,0" VerticalAlignment="Top" Width="200" Height="31" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="15"/>
-        <TextBox x:Name="Conf" HorizontalAlignment="Center" Height="32" Margin="0,196,0,0" TextWrapping="Wrap" Text="Confirm Password" VerticalAlignment="Top" Width="208" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" TextChanged="Conf_TextChanged" >
-
-        </TextBox>
+        <Label x:Name="LoginCheck" Opacity="0" Content="Имя пользователя уже существует" HorizontalAlignment="Center" Margin="292,102,300,0" VerticalAlignment="Top" Width="200" Height="26" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="10"/>
+        <PasswordBox x:Name="Conf" HorizontalAlignment="Center" Height="32" Margin="0,196,0,0" VerticalAlignment="Top" Width="208" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" Password="password" SelectionOpacity="-8" />
     </Grid>
 </Window>

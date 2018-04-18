@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:GENERATOR"
         xmlns:ControlLib="clr-namespace:ControlLib;assembly=NumericUpDown"  
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" MaxWidth="800" MaxHeight="450">
     <Window.Resources>
 
     </Window.Resources>
     <Grid Background="{DynamicResource loginback }" >
-        <Grid.RowDefinitions>
+
+            <Grid.RowDefinitions>
             <RowDefinition Height="30px"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -27,6 +28,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
         </Grid>
 
 
@@ -42,14 +44,20 @@
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
             <MenuItem Header="{DynamicResource CurrentUser}" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}"></MenuItem>
-            
+
 
         </Menu>
         <Label Grid.Row="1" Grid.Column="0" Margin="20,2,0,167" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 1:</Label>
-        <Label Grid.Row="1" Grid.Column="0" Margin="20,27,406,143"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Укажите характеристики ряда:</Label>
-        <Label Grid.Row="1" Grid.Column="0" Margin="20,51,406,119"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена числителя -</Label>
-        <Label Grid.Row="1" Grid.Column="0" Margin="20,75,406,95"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена знаменателя -</Label>
-        <ControlLib:NumericUpDown Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
-        <ControlLib:NumericUpDown Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" Height="20"/>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,27,406,141"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Укажите характеристики ряда:</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,51,406,116"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена числителя -</Label>
+        <Label Grid.Row="1" Grid.Column="0" Margin="20,75,406,83"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Степень многочлена знаменателя -</Label>
+        <ControlLib:NumericUpDown x:Name="chisl" Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
+        <ControlLib:NumericUpDown x:Name="znam" Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" Height="20"/>
+        <Label Grid.Row="1" Margin="415,5,0,164" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 2:</Label>
+        <Label Grid.Row="1" Margin="415,29,11,121"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Введите коэффициенты при переменных</Label>
+        <Label Grid.Row="1" Margin="415,53,11,96"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">(от самой высокой степени к самой низкой)
+        </Label>
+        <Border BorderThickness="0 0 0 2" BorderBrush="white"></Border>
+
     </Grid>
 </Window>

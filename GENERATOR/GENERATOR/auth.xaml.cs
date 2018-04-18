@@ -54,7 +54,7 @@ namespace GENERATOR
              
             while (R.Read())
             {
-                if ((string)R.GetValue(0) == Log.Text && (string)R.GetValue(1) == Pass.Text.GetHashCode().ToString()) { match = true;
+                if ((string)R.GetValue(0) == Log.Text && (string)R.GetValue(1) == Pass.Password.GetHashCode().ToString()) { match = true;
 
                     int lvl;
                     switch (R.GetValue(2))
@@ -64,7 +64,7 @@ namespace GENERATOR
                         case "PRO": lvl = 3; break;
                         default: lvl = 1;break;
                     }  
-                   CurrentUser = new USER(Log.Text, Pass.Text.GetHashCode().ToString(), lvl);
+                   CurrentUser = new USER(Log.Text, Pass.Password.GetHashCode().ToString(), lvl);
 
                 }
             }

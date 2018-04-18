@@ -83,9 +83,9 @@
         <TextBox   x:Name="Log" HorizontalAlignment="Center" Height="32" Margin="0,155,0,0" TextWrapping="Wrap" Text="Login" VerticalAlignment="Top" Width="200" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5">
 
         </TextBox>
-        <TextBox x:Name="Pass" HorizontalAlignment="Center" Height="32" Margin="0,192,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="200" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" >
+        <PasswordBox x:Name="Pass" HorizontalAlignment="Center" Height="32" Margin="0,192,0,0" Password="password" VerticalAlignment="Top" Width="200" Background="{DynamicResource textboxes}" BorderBrush="{x:Null}" Foreground="White" FontSize="20" RenderTransformOrigin="0.5,0.5" >
 
-        </TextBox>
+        </PasswordBox>
         <Label Content="REGISTER" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Width="78" Height="31" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="15" Cursor="Hand" MouseDown="Label_MouseDown"/>
         <Label  x:Name="validate" Visibility="Hidden" Content="Неверный логин и/или пароль" HorizontalAlignment="Center" Margin="296,135,296,0" VerticalAlignment="Top" Width="200" Height="20" Style="{DynamicResource reg1}" FontFamily="Franklin Gothic Demi" FontSize="10"/>
 

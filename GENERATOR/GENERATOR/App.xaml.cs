@@ -73,9 +73,10 @@ namespace GENERATOR
         public static string start = "%7B";
         public static string end = "%7D";
         public static string stepen = "%5E";
-        public static int index;  //количество картинок (или количество всех рядов)   
+        public static int index = 0;  //количество картинок (или количество всех рядов)   
         public static string GetUrl(  )
         {
+            index++;
             string result = starturl;
             return result;
         } 

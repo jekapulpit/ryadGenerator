@@ -8,11 +8,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" MaxWidth="800" MaxHeight="450">
     <Window.Resources>
-
+        <ControlTemplate x:Key="xxx">
+            <Border  
+                  CornerRadius="100" 
+                  BorderThickness="4" 
+                  Background="White"  
+                  BorderBrush="{DynamicResource ButtonAuth}"
+                  RenderTransformOrigin="0.5,0.5"
+                   >
+                <ContentPresenter x:Name="ButtonContentPresenter"
+                                VerticalAlignment="Center"  
+                                HorizontalAlignment="Center"
+                                   />
+            </Border>
+        </ControlTemplate>
     </Window.Resources>
     <Grid Background="{DynamicResource loginback }" >
 
-            <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="30px"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -28,7 +41,10 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
+            <Border BorderThickness="2 0 2 2" BorderBrush="white"></Border>
+            <Border Grid.Column="1" BorderThickness="0 0 2 2" BorderBrush="white"></Border>
+
         </Grid>
 
 
@@ -43,7 +59,7 @@
         </Menu>
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
             <MenuItem Header="{DynamicResource CurrentUser}" Style="{DynamicResource Menuitems}"></MenuItem>
-            <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}" Click="MenuItem_Click"></MenuItem>
 
 
         </Menu>
@@ -54,9 +70,15 @@
         <ControlLib:NumericUpDown x:Name="chisl" Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
         <ControlLib:NumericUpDown x:Name="znam" Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" Height="20"/>
         <Label Grid.Row="1" Margin="415,5,0,164" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 2:</Label>
-        <Label Grid.Row="1" Margin="415,29,11,121"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">Введите коэффициенты при переменных</Label>
-        <Label Grid.Row="1" Margin="415,53,11,96"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto">(от самой высокой степени к самой низкой)
-        </Label>
+        <Button Template="{StaticResource xxx}" x:Name="Generate" Grid.Row="2" Margin="333,37,337,35" Content="Generate" Click="GenerateR" Cursor="Hand"/>
+        <Label Margin="415,30,44,131"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="Введите коэффициенты при переменных числителя" Grid.Row="1"/>
+        <Label Margin="415,51,98,116"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой высокой степени к самой низкой)" Grid.Row="1" />
+        <TextBox  x:Name="Koeffs1" Height="20px" Margin="424,78,226,96" Grid.Row="1" />
+
+        <Label Margin="415,103,44,59"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="Введите коэффициенты при переменных знаменателя" Grid.Row="1"/>
+        <Label Margin="415,123,98,42"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой высокой степени к самой низкой)" Grid.Row="1" />
+        <TextBox x:Name="Koeffs2" Height="20px" Margin="424,152,226,22" Grid.Row="1" />
+
         <Border BorderThickness="0 0 0 2" BorderBrush="white"></Border>
 
     </Grid>

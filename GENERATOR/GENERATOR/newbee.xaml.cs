@@ -13,6 +13,8 @@ using System;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace GENERATOR
 {
@@ -22,7 +24,8 @@ namespace GENERATOR
     public partial class MainWindow : Window
     {
         public USER CurrentUser;
-         
+        SqlConnection thisConnection;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +39,30 @@ namespace GENERATOR
                 client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/test.gif");
             }
            
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentUser = null;
+            auth T = new auth();
+            T.Show();
+            this.Close();
+        }
+
+        private void GenerateR(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
+                thisConnection.Open();
+                SqlCommand AddRyad = thisConnection.CreateCommand();
+                AddRyad.CommandText = "insert into RYADS (RYADID, RYADTYPE, CREATOR, IMGURL, CTEATED) values(1, 'usual', '" + Resources["CurrentUser"] + "','%5Csum_%7B1%7D%5E%7B2%7D%7Bsin%282x%29%7D', default )";
+                SqlDataReader R = AddRyad.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 

@@ -13,12 +13,12 @@ namespace GENERATOR
     /// Логика взаимодействия для App.xaml
     /// </summary>
     /// 
-     
     public partial class App : Application
     {
+      
     }
 
-    class Generator
+    public class Generator
     {
         bool IsFunctional;      //Является ли ряд функциональным
         bool IsPow;             //Является ли ряд степенным
@@ -32,15 +32,23 @@ namespace GENERATOR
         double PowOfDominator;  //Степень многочлена в знаменателе
         double FullSum;         //Полная сумма ряда 
         double PartSum;         //Частичная сумма ряда
-        string path;            //Ссылка на изображение ряда (будет представлен в виде картикнки)
+        public string path;           //Ссылка на изображение ряда (будет представлен в виде картикнки)
         DateTime date;          //Дата создания ряда
         public Generator()
         {
            
-             
-             
-
+     
         }   //Конструктор
+
+        public Generator(int st1, int st2, double[] koeffs1, double[] koeffs2, string url)
+        {
+            PowOfDominator = st2;
+            PowOfNumerator = st1;
+            NumCoeffs = koeffs1;
+            DomCoeffs = koeffs2;
+            path = url;
+        }   //Конструктор1
+
         public bool CheckConverge()
         {
             return true;
@@ -61,30 +69,25 @@ namespace GENERATOR
         {
             return null;
         } //Нахождение области сходимости
-        
-         
-         
+       
+
+
     }
     static class picdownloader
     {
-        public static  string starturl = "https://latex.codecogs.com/gif.latex?%5Csum_%7B1%7D%5E%7B%5Cinfty%7D";
+        public static string starturl = "https://latex.codecogs.com/gif.latex?%5Csum_%7B1%7D%5E%7B%5Cinfty%7D";
         public static string drob = "%5Cfrac";
 
         public static string start = "%7B";
         public static string end = "%7D";
         public static string stepen = "%5E";
         public static int index = 0;  //количество картинок (или количество всех рядов)   
-        public static string GetUrl(  )
-        {
-            index++;
-            string result = starturl;
-            return result;
-        } 
+        
         public static void getpic(string url)
         {
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/test.gif");
+                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/pics/ryad" + index + ".gif");
             }
         } // преобразование введенных пользователем 
                                                  // данных в ссылку и скачивание изображения

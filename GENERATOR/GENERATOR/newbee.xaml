@@ -8,20 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" MaxWidth="800" MaxHeight="450">
     <Window.Resources>
-        <ControlTemplate x:Key="xxx">
-            <Border  
-                  CornerRadius="100" 
-                  BorderThickness="4" 
-                  Background="White"  
-                  BorderBrush="{DynamicResource ButtonAuth}"
-                  RenderTransformOrigin="0.5,0.5"
-                   >
-                <ContentPresenter x:Name="ButtonContentPresenter"
-                                VerticalAlignment="Center"  
-                                HorizontalAlignment="Center"
-                                   />
-            </Border>
-        </ControlTemplate>
+
     </Window.Resources>
     <Grid Background="{DynamicResource loginback }" >
 
@@ -46,13 +33,16 @@
             <Border Grid.Column="1" BorderThickness="0 0 2 2" BorderBrush="white"></Border>
 
         </Grid>
-        <Grid Grid.Row="2" Background="White"></Grid>
+        <Grid  x:Name="lolls" Grid.Row="2" Background="White"></Grid>
 
 
         <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
             <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
-            <MenuItem Header="Генератор" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Генератор" Style="{DynamicResource Menuitems}">
+                <MenuItem Header="История" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem> 
+                
+            </MenuItem>
             <MenuItem Header="Правка" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
@@ -71,17 +61,18 @@
         <ControlLib:NumericUpDown x:Name="chisl" Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
         <ControlLib:NumericUpDown x:Name="znam" Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
         <Label Grid.Row="1" Margin="415,5,0,164" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 2:</Label>
-        <Button Template="{StaticResource xxx}" x:Name="Generate" Grid.Row="2" Margin="333,37,337,35" Content="Generate" Click="GenerateR" Cursor="Hand"/>
+        <Button x:Name="Generate" Grid.Row="2" Margin="333,37,337,35" Content="Generate" Click="GenerateR" Cursor="Hand"/>
         <Label Margin="415,30,44,131"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="Введите коэффициенты при переменных числителя" Grid.Row="1"/>
-        <Label Margin="415,51,98,116"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой высокой степени к самой низкой)" Grid.Row="1" />
+        <Label Margin="415,51,98,116"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой низкой степени к самой высокой)" Grid.Row="1" />
         <TextBox  x:Name="Koeffs1" Height="20px" Margin="423,78,227,96" Grid.Row="1" />
 
         <Label Margin="415,103,44,59"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="Введите коэффициенты при переменных знаменателя" Grid.Row="1"/>
-        <Label Margin="415,123,98,42"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой высокой степени к самой низкой)" Grid.Row="1" />
+        <Label Margin="415,123,98,42"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой низкой степени к самой высокой)" Grid.Row="1" />
         <TextBox x:Name="Koeffs2" Height="20px" Margin="424,152,226,22" Grid.Row="1" />
 
         <Border BorderThickness="0 0 0 2" BorderBrush="white"></Border>
-        <Image x:Name="Rimage" Source="E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\pics\ryad11.gif" HorizontalAlignment="Left" Margin="466,50,0,50" Grid.Row="2" VerticalAlignment="Top"/>
+        <Image x:Name="Rimage"  HorizontalAlignment="Left" Margin="466,50,0,50" Grid.Row="2" VerticalAlignment="Top"/>
+       
 
     </Grid>
 </Window>

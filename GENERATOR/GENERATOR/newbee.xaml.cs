@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace GENERATOR
 {
@@ -58,9 +59,40 @@ namespace GENERATOR
                 picdownloader.getpic(CurrentRYAD.path);
                 thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
                 thisConnection.Open();
-                SqlCommand AddRyad = thisConnection.CreateCommand();
-                AddRyad.CommandText = "insert into RYADS (RYADID, RYADTYPE, CREATOR, IMGURL, CTEATED) values(" + picdownloader.index + ", 'usual', '" + Resources["CurrentUser"] + "','" + CurrentRYAD.path.Substring(68) + "', default )";
-                SqlDataReader R = AddRyad.ExecuteReader();
+                SqlCommand AddRyad =new SqlCommand("Addinnewbee", thisConnection);
+
+                AddRyad.CommandType = CommandType.StoredProcedure;
+                SqlParameter param1 = new SqlParameter();
+                param1.ParameterName = "@id";
+                param1.SqlDbType = SqlDbType.Int;
+                param1.Value = picdownloader.index;
+
+                SqlParameter param2 = new SqlParameter();
+                param2.ParameterName = "@us";
+                param2.SqlDbType = SqlDbType.NVarChar;
+                param2.Size = 20;
+                param2.Value = Resources["CurrentUser"];
+
+                SqlParameter param3 = new SqlParameter();
+                param3.ParameterName = "@picture";
+                param3.SqlDbType = SqlDbType.NVarChar;
+                param3.Size = 100;
+                param3.Value = CurrentRYAD.path.Substring(68);
+
+                SqlParameter param4 = new SqlParameter();
+                param4.ParameterName = "@type";
+                param4.SqlDbType = SqlDbType.Char;
+                param4.Size = 10;
+                param4.Value = "usual";
+                AddRyad.Parameters.Add(param1);
+                AddRyad.Parameters.Add(param4);
+                AddRyad.Parameters.Add(param2);
+                AddRyad.Parameters.Add(param3);
+                AddRyad.ExecuteNonQuery();
+
+
+                //AddRyad.CommandText = "insert into RYADS (RYADID, RYADTYPE, CREATOR, IMGURL, CTEATED) values(" + picdownloader.index + ", 'usual', '" + Resources["CurrentUser"] + "','" + CurrentRYAD.path.Substring(68) + "', default )";
+                //SqlDataReader R = AddRyad.ExecuteReader();
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
                 bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + picdownloader.index + ".gif", UriKind.Absolute);
@@ -71,7 +103,16 @@ namespace GENERATOR
 
                 Koeffs1.BorderBrush = null;
                 Koeffs1.BorderBrush = null;
-                R.Close();
+                //R.Close();
+
+                Label shod = new Label();
+                shod.Margin = new Thickness(10, 19, 416, 140);
+                shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится":"Не сходится");
+                 
+                 
+
+                lolls.Children.Add(shod);
+                 
             }
             catch(Exception ex)
             {
@@ -174,6 +215,14 @@ namespace GENERATOR
             }
         }
 
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            history T = new history(Resources["CurrentUser"].ToString());
+            
+            T.Show();
+
+           
+      }
     }
 
 }

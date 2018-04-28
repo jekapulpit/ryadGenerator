@@ -71,6 +71,7 @@ namespace GENERATOR
             if (match)
             {
                 MainWindow newbee = new MainWindow();           
+                 
                 newbee.Resources.Add("CurrentUser", CurrentUser.username);
                 newbee.Show();
                 this.Close();

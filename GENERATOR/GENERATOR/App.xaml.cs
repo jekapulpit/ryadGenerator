@@ -22,7 +22,7 @@ namespace GENERATOR
     {
         bool IsFunctional;      //Является ли ряд функциональным
         bool IsPow;             //Является ли ряд степенным
-        bool IsConverge;        //Является ли ряд сходящимся 
+        public   bool IsConverge;        //Является ли ряд сходящимся 
         bool IsAlter;           //Является ли ряд знакопеременным
         bool IsRandom;          //Является ли ряд СЛУЧАЙНЫМ
         bool IsWithout9;        //Является ли ряд истонченным
@@ -47,11 +47,29 @@ namespace GENERATOR
             NumCoeffs = koeffs1;
             DomCoeffs = koeffs2;
             path = url;
+            IsFunctional = false;
+            IsPow = false;
+            IsAlter=false; 
+            IsAlter=false; 
+            IsRandom=false; 
+            IsWithout9= false;
+
+            IsConverge = CheckConverge();
+             
+             
+             
         }   //Конструктор1
 
         public bool CheckConverge()
         {
-            return true;
+            if (!IsFunctional && !IsPow)
+            {
+                if (IsRandom || IsWithout9) return true;
+                if (IsAlter && PowOfDominator > PowOfNumerator) return true;
+                if (PowOfDominator - PowOfNumerator > 1) return true;
+                return false;
+            }
+            else return false;
         }   //Проверка, является ли ряд сходящимся
         public double CountN(int n)
         {

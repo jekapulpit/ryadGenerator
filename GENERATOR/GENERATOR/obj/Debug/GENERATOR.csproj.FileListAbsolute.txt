@@ -27,3 +27,5 @@ E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\GENERATOR_Content.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\register.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\register.baml
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\history.g.cs
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\history.baml

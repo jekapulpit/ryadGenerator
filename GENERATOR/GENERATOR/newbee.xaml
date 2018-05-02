@@ -71,7 +71,7 @@
         <TextBox x:Name="Koeffs2" Height="20px" Margin="424,152,226,22" Grid.Row="1" />
 
         <Border BorderThickness="0 0 0 2" BorderBrush="white"></Border>
-        <Image x:Name="Rimage"  HorizontalAlignment="Left" Margin="466,50,0,50" Grid.Row="2" VerticalAlignment="Top"/>
+        <Image x:Name="Rimage"  HorizontalAlignment="Left" Margin="466,60,0,60" Grid.Row="2" VerticalAlignment="Top"/>
        
 
     </Grid>

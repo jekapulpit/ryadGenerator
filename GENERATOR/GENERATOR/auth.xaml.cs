@@ -70,10 +70,10 @@ namespace GENERATOR
             }
             if (match)
             {
-                MainWindow newbee = new MainWindow();           
+                App.newbee = new MainWindow();           
                  
-                newbee.Resources.Add("CurrentUser", CurrentUser.username);
-                newbee.Show();
+                App.newbee.Resources.Add("CurrentUser", CurrentUser.username);
+                App.newbee.Show();
                 this.Close();
             }
             else

@@ -9,13 +9,11 @@ using System.Net;
 using System.Data.SqlClient;
 namespace GENERATOR
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
-    /// 
     public partial class App : Application
     {
-      
+        public static Generator Current { get; set; }
+        public static   MainWindow newbee;
+
     }
 
     public class Generator
@@ -59,7 +57,39 @@ namespace GENERATOR
              
              
         }   //Конструктор1
+        public Generator(string url,string  type)
+        {
+           
+            path = url;
 
+            if (type == "usual")
+            {
+                IsFunctional = false;
+                IsPow = false;
+                IsAlter = false;
+                
+                IsRandom = false;
+                IsWithout9 = false;
+            }
+            else
+            {
+                string[] Type = type.Split('+');
+                foreach(string  t   in Type)
+                {
+                    IsAlter = (t == "alter" ? true : false);
+                    IsPow = (t == "pow" ? true : false);
+                    IsFunctional = (t == "func" ? true : false);
+                    IsRandom = (t == "rand" ? true : false);
+                    IsWithout9 = (t == "ukr" ? true : false);
+                }
+
+            }
+
+            IsConverge = CheckConverge();
+
+
+
+        }   //Конструктор2
         public bool CheckConverge()
         {
             if (!IsFunctional && !IsPow)

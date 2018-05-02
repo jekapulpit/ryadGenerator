@@ -24,12 +24,14 @@ namespace GENERATOR
     public partial class history : Window
     {
         public string currentuser;
+        Generator CurrentRyad;
+        SqlConnection thisConnection;
+       
         public history(string t)
         {
             InitializeComponent();
             currentuser = t;
-
-            SqlConnection thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
+            thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
             thisConnection.Open();
             SqlCommand AddRyad = thisConnection.CreateCommand();
             AddRyad.CommandText = "select count(*) from RYADS";
@@ -59,6 +61,8 @@ namespace GENERATOR
                 Y.Background = new SolidColorBrush(Colors.White);
                 Y.MouseEnter += backmark;
                 Y.MouseLeave += backmark1;
+                Y.MouseDown += backmark2;
+                Y.Name = "nn" + R.GetValue(0).ToString();
                 all.Children.Add(border);
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
@@ -70,15 +74,20 @@ namespace GENERATOR
                 K.Margin = new Thickness(0, 10, 300, 10);
                 K.Source = bi3;
                 Label Shod = new Label();
-                // создать  экземпляр ряда из бд, добавив  полный конструктор 
+                
                 //  Shod.Content="Сходимость:" 
                 border.Child = Y;
                 Y.Children.Add(K);
+               
+
             }
 
 
             R.Close();
         }
+
+        
+
         public void backmark(object sender,MouseEventArgs e) {
             Grid temp = (Grid)sender;
             temp.Background = new SolidColorBrush(Colors.SkyBlue);
@@ -88,5 +97,26 @@ namespace GENERATOR
             Grid temp = (Grid)sender;
             temp.Background = new SolidColorBrush(Colors.White);
         }
+        public void backmark2(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                SqlCommand AddRyad = thisConnection.CreateCommand();
+                AddRyad.CommandText = "select * from RYADS where RYADID = " + Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2));
+                SqlDataReader R = AddRyad.ExecuteReader();
+
+                R.Read();
+                CurrentRyad = new Generator(R.GetValue(3).ToString(), R.GetValue(1).ToString());
+                App.Current = CurrentRyad;
+                MainWindow.setryad(CurrentRyad, Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                this.Close();
+            }
+            catch
+            {
+                Console.WriteLine("no");
+
+            }
+        }
+
     }
 }

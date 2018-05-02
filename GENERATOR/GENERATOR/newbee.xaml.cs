@@ -27,6 +27,8 @@ namespace GENERATOR
         public USER CurrentUser;
         public Generator CurrentRYAD;
         SqlConnection thisConnection;
+       BitmapImage bi3 = new BitmapImage();
+        Label shod = new Label();
 
         public MainWindow()
         {
@@ -104,8 +106,7 @@ namespace GENERATOR
                 Koeffs1.BorderBrush = null;
                 Koeffs1.BorderBrush = null;
                 //R.Close();
-
-                Label shod = new Label();
+               
                 shod.Margin = new Thickness(10, 19, 416, 140);
                 shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится":"Не сходится");
                  
@@ -145,7 +146,7 @@ namespace GENERATOR
                 for(int i = (int)chisl.Value; i >= 0; i--)
                 {
                    
-                        if (coeffs1[i] > 0)
+                        if (coeffs1[i] > 0  && coeffs1[i]   !=  1)
                         {
 
                             result += ((flag ? "" : "&plus;") + coeffs1[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
@@ -174,7 +175,7 @@ namespace GENERATOR
                 flag = true;
                 for (int i = (int)znam.Value; i >= 0; i--)
                 {
-                    if (coeffs2[i] > 0)
+                    if (coeffs2[i] > 0 && coeffs2[i] != 1)
                     {
 
                         result += ((flag ? "" : "&plus;") + coeffs2[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
@@ -210,11 +211,22 @@ namespace GENERATOR
             catch(Exception e)
             {
                 Koeffs1.BorderBrush = new SolidColorBrush(Colors.Red);
-                Koeffs1.BorderBrush = new SolidColorBrush(Colors.Red);
+                Koeffs2.BorderBrush = new SolidColorBrush(Colors.Red);
                 return;
             }
         }
+        public static void setryad(Generator Curr, int id)
+        {
+                
+            App.newbee.bi3.BeginInit();
+            App.newbee.bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + id + ".gif", UriKind.Absolute);
+            App.newbee.bi3.EndInit();
+            App.newbee.Rimage.Source = App.newbee.bi3;
 
+
+
+
+        }
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             history T = new history(Resources["CurrentUser"].ToString());

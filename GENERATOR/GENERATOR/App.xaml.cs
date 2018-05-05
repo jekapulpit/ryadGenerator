@@ -7,51 +7,64 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Net;
 using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+
 namespace GENERATOR
 {
     public partial class App : Application
     {
         public static Generator Current { get; set; }
-        public static   MainWindow newbee;
+        public static MainWindow newbee;
 
     }
+   
 
     public class Generator
     {
-        bool IsFunctional;      //Является ли ряд функциональным
-        bool IsPow;             //Является ли ряд степенным
-        public   bool IsConverge;        //Является ли ряд сходящимся 
-        bool IsAlter;           //Является ли ряд знакопеременным
-        bool IsRandom;          //Является ли ряд СЛУЧАЙНЫМ
-        bool IsWithout9;        //Является ли ряд истонченным
-        double[] NumCoeffs;     //Коэффициенты многочлена в числителе
-        double[] DomCoeffs;     //Коэффициенты многочлена в знаменателе
-        double PowOfNumerator;  //Степень многочлена в числителе
-        double PowOfDominator;  //Степень многочлена в знаменателе
-        double FullSum;         //Полная сумма ряда 
-        double PartSum;         //Частичная сумма ряда
-        public string path;           //Ссылка на изображение ряда (будет представлен в виде картикнки)
-        DateTime date;          //Дата создания ряда
+        [Key]
+        public int Id { get; set; }
+        public bool IsFunctional { get; set; }      //Является ли ряд функциональным
+        public bool IsPow       { get; set; }      //Является ли ряд степенным
+        public bool IsConverge        { get; set; }//Является ли ряд сходящимся 
+        public bool IsAlter          { get; set; } //Является ли ряд знакопеременным
+        public bool IsRandom { get; set; }          //Является ли ряд СЛУЧАЙНЫМ
+        public bool IsWithout9 { get; set; }        //Является ли ряд истонченным
+        public string NumCoeffs { get; set; }     //Коэффициенты многочлена в числителе
+        public string DomCoeffs { get; set; }     //Коэффициенты многочлена в знаменателе
+        public string Creator  { get; set; }     //создатель ряда
+
+        public double PowOfNumerator { get; set; }  //Степень многочлена в числителе
+        public double PowOfDominator { get; set; }  //Степень многочлена в знаменателе
+        public double FullSum { get; set; }         //Полная сумма ряда 
+        public double PartSum { get; set; }         //Частичная сумма ряда
+        public string path { get; set; }           //Ссылка на изображение ряда (будет представлен в виде картикнки)
+        [Column(TypeName = "Date")]
+        public DateTime date { get; set; }          //Дата создания ряда
         public Generator()
         {
            
      
         }   //Конструктор
 
-        public Generator(int st1, int st2, double[] koeffs1, double[] koeffs2, string url)
+        public Generator(int st1, int st2, string koeffs1,  string koeffs2, string url)
         {
+            date = DateTime.Today;
             PowOfDominator = st2;
             PowOfNumerator = st1;
             NumCoeffs = koeffs1;
             DomCoeffs = koeffs2;
             path = url;
+                
             IsFunctional = false;
             IsPow = false;
             IsAlter=false; 
             IsAlter=false; 
             IsRandom=false; 
             IsWithout9= false;
-
+            Id = picdownloader.index;
+         
             IsConverge = CheckConverge();
              
              
@@ -135,7 +148,8 @@ namespace GENERATOR
         {
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/pics/ryad" + index + ".gif");
+                client.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + "/pics/ryad" + (index+1) + ".gif");
+                index++;
             }
         } // преобразование введенных пользователем 
                                                  // данных в ссылку и скачивание изображения
@@ -143,8 +157,9 @@ namespace GENERATOR
     public class USER : DependencyObject
     {
         public  static  readonly DependencyProperty usernameProperty = DependencyProperty.Register("username", typeof(string), typeof(USER));
-      
-        public string username
+        public ICollection<Generator> Ryads { get; set; }
+        [Key]
+            public string username
         {
             get { return (string)GetValue(usernameProperty); }
             set {SetValue(usernameProperty, value); }
@@ -153,12 +168,17 @@ namespace GENERATOR
         public string password { get; set; }
        
        
-        int lvl;                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
+        int lvl { get; set; }                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
         public USER(string Username, string Password, int Lvl)
         {
             username = Username;
             password = Password;
             lvl = Lvl;
+            Ryads = new List<Generator>();
+        }
+        public USER()
+        {
+
         }
         public int PassTest()
         {
@@ -176,9 +196,12 @@ namespace GENERATOR
     }
     class Test
     {
-        int Mark;               //Оценка
-        DateTime date;          //дата прохождения
-        string user;            //пользователь, проходящий тест
+        [Key]
+        int Id;
+        int Mark { get; set; }               //Оценка
+        [Column(TypeName = "Date")]
+        DateTime date { get; set; }          //дата прохождения
+        string user { get; set; }            //пользователь, проходящий тест
         static int N = 0;       //количество попыток
         public Test(string user, DateTime date)
         {
@@ -193,4 +216,33 @@ namespace GENERATOR
         }     //Метод, осуществляющий само тестирование
     }
 
+
+    class USERContext : DbContext
+    {
+        public USERContext()
+        : base("connect")
+        { }
+
+        public DbSet<USER> Users { get; set; }
+        public DbSet<Generator> Ryads { get; set; }
+    }
+    class GeneratorContext : DbContext
+    {
+        public GeneratorContext()
+        : base("connect")
+        { }
+
+        public DbSet<USER> Users { get; set; }
+        public DbSet<Generator> Ryads { get; set; }
+
+    }
+    class TestContext : DbContext
+    {
+        public TestContext()
+        : base("connect")
+        { }
+        public DbSet<Generator> Ryads { get; set; }
+        public DbSet<Test> Tests { get; set; }
+        public DbSet<USER> Users { get; set; }
+    }
 }

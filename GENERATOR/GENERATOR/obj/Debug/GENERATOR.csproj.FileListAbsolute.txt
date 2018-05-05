@@ -21,11 +21,12 @@ E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\newbee.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\newbee.baml
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\NumericUpDown.dll
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\Database1.mdf
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\Database1_log.ldf
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\GENERATOR_Content.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\register.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\register.baml
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\history.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\history.baml
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.dll
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.SqlServer.dll
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.xml
+E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.SqlServer.xml

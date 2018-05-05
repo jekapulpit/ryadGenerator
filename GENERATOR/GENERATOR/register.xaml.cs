@@ -20,7 +20,6 @@ namespace GENERATOR
     public partial class register : Window
     {
 
-        SqlConnection thisConnection;
         public register()
         {
             InitializeComponent();
@@ -70,45 +69,31 @@ namespace GENERATOR
 
         private void ButReg_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
-                thisConnection.Open();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Коннектион инпосебле" + e);
-            }
-            if (validate(this, null))
+            using (USERContext Users = new USERContext())
             {
 
-                SqlCommand CheckUser = thisConnection.CreateCommand();
-                CheckUser.CommandText = "Select username from USERS";
-                SqlDataReader R1 = CheckUser.ExecuteReader();
-                bool match = false;
-                while (R1.Read())
-                {
-                    if (Log.Text == (string)R1.GetValue(0))
-                        match = true;
-                }
-                R1.Close();
 
-                if (!match)
+                if (validate(this, null))
                 {
 
-                    SqlCommand AddUser = thisConnection.CreateCommand();
-                    AddUser.CommandText = "insert into USERS (USERNAME, PASSWORD_D, USERTYPE) values('" + Log.Text + "', '" + Pass.Password.GetHashCode().ToString() + "', 'PRO')";
-                    SqlDataReader R = AddUser.ExecuteReader();
-                    auth auth = new auth();
-                    auth.Show();
 
-                    this.Close();
-                }
-                else
-                {
-                    LoginCheck.Opacity = 1;
-                    Log.BorderBrush = new SolidColorBrush(Colors.Red);
+                    bool match = false;
+
+
+                    if (!match)
+                    {
+                        USER T = new USER(Log.Text, (Pass.Password).GetHashCode().ToString(), 1);
+                        Users.Users.Add(T);
+                        Users.SaveChanges();
+                        auth auth = new auth();
+                        auth.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        LoginCheck.Opacity = 1;
+                        Log.BorderBrush = new SolidColorBrush(Colors.Red);
+                    }
                 }
             }
         }

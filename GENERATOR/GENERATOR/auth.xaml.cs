@@ -22,68 +22,50 @@ namespace GENERATOR
     /// </summary>
     public partial class auth : Window
     {
-        SqlConnection thisConnection;
+       
 
         USER CurrentUser;
         public auth()
         {
             InitializeComponent();
-           
-        
+          
+
+
+
         }
         private void But_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+
+
+
+            using (USERContext db = new USERContext())
             {
-                thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
-                thisConnection.Open();
+               
+                
+                var t = db.Users;
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Коннектион инпосебле" + e);
-            }
-
+                var mach =   from p in t
+                             where p.username == Log.Text
+                             select p;
 
 
-            SqlCommand AddUser = thisConnection.CreateCommand();
-            AddUser.CommandText = "select * from USERS";
-
-            SqlDataReader R = AddUser.ExecuteReader();
-            bool match = false;  
-             
-            while (R.Read())
-            {
-                if ((string)R.GetValue(0) == Log.Text && (string)R.GetValue(1) == Pass.Password.GetHashCode().ToString()) { match = true;
-
-                    int lvl;
-                    switch (R.GetValue(2))
-                    {
-                        case "NEW": lvl = 1; break;
-                        case "MEDIUM": lvl = 2; break;
-                        case "PRO": lvl = 3; break;
-                        default: lvl = 1;break;
-                    }  
-                   CurrentUser = new USER(Log.Text, Pass.Password.GetHashCode().ToString(), lvl);
-
+                if (mach.Count() != 0)
+                {
+                    App.newbee = new MainWindow();
+                    CurrentUser = mach.First<USER>();
+                    App.newbee.Resources.Add("CurrentUser", CurrentUser.username);
+                    App.newbee.Show();
+                    this.Close();
                 }
-            }
-            if (match)
-            {
-                App.newbee = new MainWindow();           
-                 
-                App.newbee.Resources.Add("CurrentUser", CurrentUser.username);
-                App.newbee.Show();
-                this.Close();
-            }
-            else
-            {
-                 Log.BorderBrush= new SolidColorBrush(Colors.Red);
-                 Pass.BorderBrush = new SolidColorBrush(Colors.Red);
-                 validate.Visibility = Visibility.Visible;
-            }
+                else
+                {
+                    Log.BorderBrush = new SolidColorBrush(Colors.Red);
+                    Pass.BorderBrush = new SolidColorBrush(Colors.Red);
+                    validate.Visibility = Visibility.Visible;
+                }
 
-
+            }
 
         }
 

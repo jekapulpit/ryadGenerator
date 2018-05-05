@@ -25,22 +25,18 @@ namespace GENERATOR
     public partial class MainWindow : Window
     {
         public USER CurrentUser;
-        public Generator CurrentRYAD;
-        SqlConnection thisConnection;
-       BitmapImage bi3 = new BitmapImage();
+        public static Generator CurrentRYAD;
+        BitmapImage bi3 = new BitmapImage();
         Label shod = new Label();
 
         public MainWindow()
         {
             InitializeComponent();
-            thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
-            thisConnection.Open();
-            SqlCommand AddRyad = thisConnection.CreateCommand();
-            AddRyad.CommandText = "select count(*) from RYADS";
-            SqlDataReader R = AddRyad.ExecuteReader();
-            R.Read();
-            picdownloader.index = Convert.ToInt32(R.GetValue(0));
-            R.Close();
+
+            using (GeneratorContext ryads = new GeneratorContext())
+            {
+                picdownloader.index = ryads.Ryads.Count();
+            }
         }
 
       
@@ -57,62 +53,34 @@ namespace GENERATOR
         {
             try
             {
-                GetRyad();
-                picdownloader.getpic(CurrentRYAD.path);
-                thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
-                thisConnection.Open();
-                SqlCommand AddRyad =new SqlCommand("Addinnewbee", thisConnection);
-
-                AddRyad.CommandType = CommandType.StoredProcedure;
-                SqlParameter param1 = new SqlParameter();
-                param1.ParameterName = "@id";
-                param1.SqlDbType = SqlDbType.Int;
-                param1.Value = picdownloader.index;
-
-                SqlParameter param2 = new SqlParameter();
-                param2.ParameterName = "@us";
-                param2.SqlDbType = SqlDbType.NVarChar;
-                param2.Size = 20;
-                param2.Value = Resources["CurrentUser"];
-
-                SqlParameter param3 = new SqlParameter();
-                param3.ParameterName = "@picture";
-                param3.SqlDbType = SqlDbType.NVarChar;
-                param3.Size = 100;
-                param3.Value = CurrentRYAD.path.Substring(68);
-
-                SqlParameter param4 = new SqlParameter();
-                param4.ParameterName = "@type";
-                param4.SqlDbType = SqlDbType.Char;
-                param4.Size = 10;
-                param4.Value = "usual";
-                AddRyad.Parameters.Add(param1);
-                AddRyad.Parameters.Add(param4);
-                AddRyad.Parameters.Add(param2);
-                AddRyad.Parameters.Add(param3);
-                AddRyad.ExecuteNonQuery();
+                using (GeneratorContext db = new GeneratorContext())
+                {
+                    GetRyad();
+                    picdownloader.getpic(CurrentRYAD.path);
 
 
-                //AddRyad.CommandText = "insert into RYADS (RYADID, RYADTYPE, CREATOR, IMGURL, CTEATED) values(" + picdownloader.index + ", 'usual', '" + Resources["CurrentUser"] + "','" + CurrentRYAD.path.Substring(68) + "', default )";
-                //SqlDataReader R = AddRyad.ExecuteReader();
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + picdownloader.index + ".gif", UriKind.Absolute);
-                bi3.EndInit();
-              
-                Rimage.Source = bi3;
-               
 
-                Koeffs1.BorderBrush = null;
-                Koeffs1.BorderBrush = null;
-                //R.Close();
-               
-                shod.Margin = new Thickness(10, 19, 416, 140);
-                shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится":"Не сходится");
-                 
-                 
 
-                lolls.Children.Add(shod);
+                    BitmapImage bi3 = new BitmapImage();
+                    bi3.BeginInit();
+                    bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + (CurrentRYAD.Id+1) + ".gif", UriKind.Absolute);
+                    bi3.EndInit();
+
+                    Rimage.Source = bi3;
+
+
+                    Koeffs1.BorderBrush = null;
+                    Koeffs1.BorderBrush = null;
+                    //R.Close();
+
+                    shod.Margin = new Thickness(10, 19, 416, 140);
+                    shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
+                    db.Ryads.Add(CurrentRYAD);
+                    db.SaveChanges();
+
+
+                    lolls.Children.Add(shod);
+                }
                  
             }
             catch(Exception ex)
@@ -129,16 +97,7 @@ namespace GENERATOR
                 string[] zn = this.Koeffs2.Text.Split(' ');
                 if (ch.Length != chisl.Value+1 || zn.Length != znam.Value+1)
                     throw new Exception();
-                double[] coeffs1 = new double[ch.Length];
-                double[] coeffs2 = new double[zn.Length];
-                for (int i = 0; i < ch.Length; i++)
-                {
-                    coeffs1[i] = Convert.ToDouble(ch[i]);
-                }
-                for (int i = 0; i < zn.Length; i++)
-                {
-                    coeffs2[i] = Convert.ToDouble(zn[i]);
-                }
+             
                 result += picdownloader.start;
                 result += picdownloader.drob;
                 result += picdownloader.start;
@@ -146,21 +105,21 @@ namespace GENERATOR
                 for(int i = (int)chisl.Value; i >= 0; i--)
                 {
                    
-                        if (coeffs1[i] > 0  && coeffs1[i]   !=  1)
+                        if (Convert.ToDouble(ch[i]) > 0  && Convert.ToDouble(ch[i])   !=  1)
                         {
 
-                            result += ((flag ? "" : "&plus;") + coeffs1[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
+                            result += ((flag ? "" : "&plus;") + ch[i] + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                             flag = false;
 
-                        } else if (coeffs1[i] < 0)
+                        } else if (Convert.ToDouble(ch[i]) < 0)
                         {
-                            result += ((flag ? "" : "-") + coeffs1[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
+                            result += ((flag ? "" : "-") + ch[i] + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                             flag = false;
-                        } else if (coeffs1[i] == 1)
+                        } else if (Convert.ToDouble(ch[i]) == 1)
                         {
                             result += ((flag ? "" : "&plus;") + (i == 0 ? "1" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                             flag = false;
-                        } else if (coeffs1[i] == -1)
+                        } else if (Convert.ToDouble(ch[i]) == -1)
                         {
                             result += ((flag ? "" : "-") + (i == 0 ? "1" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                             flag = false;
@@ -175,24 +134,24 @@ namespace GENERATOR
                 flag = true;
                 for (int i = (int)znam.Value; i >= 0; i--)
                 {
-                    if (coeffs2[i] > 0 && coeffs2[i] != 1)
+                    if (Convert.ToDouble(zn[i]) > 0 && Convert.ToDouble(zn[i]) != 1)
                     {
 
-                        result += ((flag ? "" : "&plus;") + coeffs2[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
+                        result += ((flag ? "" : "&plus;") + Convert.ToDouble(zn[i]) + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                         flag = false;
 
                     }
-                    else if (coeffs2[i] < 0)
+                    else if (Convert.ToDouble(zn[i]) < 0)
                     {
-                        result += ((flag ? "" : "-") + coeffs2[i].ToString() + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
+                        result += ((flag ? "" : "-") + zn[i] + (i == 0 ? "" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                         flag = false;
                     }
-                    else if (coeffs2[i] == 1)
+                    else if (Convert.ToDouble(zn[i]) == 1)
                     {
                         result += ((flag ? "" : "&plus;") + (i == 0 ? "1" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                         flag = false;
                     }
-                    else if (coeffs2[i] == -1)
+                    else if (Convert.ToDouble(zn[i]) == -1)
                     {
                         result += ((flag ? "" : "-") + (i == 0 ? "1" : ("n" + (i == 1 ? "" : (picdownloader.stepen + i.ToString())))));
                         flag = false;
@@ -205,10 +164,12 @@ namespace GENERATOR
                 }
                 result += picdownloader.end;
                 result += picdownloader.end;
-                picdownloader.index++;
-                CurrentRYAD = new Generator((int)chisl.Value, (int)znam.Value, coeffs1, coeffs2, result);
+                CurrentRYAD = new Generator((int)chisl.Value, (int)znam.Value, Koeffs1.Text, Koeffs2.Text, result);
+               
+               
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Koeffs1.BorderBrush = new SolidColorBrush(Colors.Red);
                 Koeffs2.BorderBrush = new SolidColorBrush(Colors.Red);
@@ -222,7 +183,7 @@ namespace GENERATOR
             App.newbee.bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + id + ".gif", UriKind.Absolute);
             App.newbee.bi3.EndInit();
             App.newbee.Rimage.Source = App.newbee.bi3;
-
+            CurrentRYAD = Curr;
 
 
 

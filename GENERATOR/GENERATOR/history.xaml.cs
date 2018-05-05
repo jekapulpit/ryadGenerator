@@ -25,65 +25,62 @@ namespace GENERATOR
     {
         public string currentuser;
         Generator CurrentRyad;
-        SqlConnection thisConnection;
+       
        
         public history(string t)
         {
             InitializeComponent();
+
             currentuser = t;
-            thisConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["connect"].ConnectionString);//открыть соединение
-            thisConnection.Open();
-            SqlCommand AddRyad = thisConnection.CreateCommand();
-            AddRyad.CommandText = "select count(*) from RYADS";
-            SqlDataReader R = AddRyad.ExecuteReader();
-            R.Read();
-            picdownloader.index = Convert.ToInt32(R.GetValue(0));
-            R.Close();
-            AddRyad.CommandText = "select * from RYADS where CREATOR = '" + currentuser +"'";
-            R = AddRyad.ExecuteReader();
-           
-            while (R.Read())
+            using (GeneratorContext L = new GeneratorContext())
             {
-
-                Border border = new Border();
-              
-
-
-                border.BorderThickness = new Thickness(0,1,0,1);
-
-                border.BorderBrush = new SolidColorBrush(Colors.Black);
                 
-                
+                picdownloader.index = L.Ryads.Count();
+                foreach (Generator m in L.Ryads)
+                {
+                    Border border = new Border();
+                    border.BorderThickness = new Thickness(0, 1, 0, 1);
+                    border.BorderBrush = new SolidColorBrush(Colors.Black);
+                    Grid Y = new Grid();
+                    Y.Height = 70;
+                    Y.Background = new SolidColorBrush(Colors.White);
+                    Y.MouseEnter += backmark;
+                    Y.MouseLeave += backmark1;
+                    Y.MouseDown += backmark2;
+                    Y.Name = "nn" + m.Id;
+                    all.Children.Add(border);
+                    BitmapImage bi3 = new BitmapImage();
+                    bi3.BeginInit();
+                    bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + m.Id + ".gif", UriKind.Absolute);
+                    bi3.EndInit();
+                    Image K = new Image();
 
-               
-                Grid Y = new Grid();
-                Y.Height = 70;
-                Y.Background = new SolidColorBrush(Colors.White);
-                Y.MouseEnter += backmark;
-                Y.MouseLeave += backmark1;
-                Y.MouseDown += backmark2;
-                Y.Name = "nn" + R.GetValue(0).ToString();
-                all.Children.Add(border);
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" +  R.GetValue(0) + ".gif", UriKind.Absolute);
-                bi3.EndInit();
-                Image K = new Image();
-                 
-                 
-                K.Margin = new Thickness(0, 10, 300, 10);
-                K.Source = bi3;
-                Label Shod = new Label();
-                
-                //  Shod.Content="Сходимость:" 
-                border.Child = Y;
-                Y.Children.Add(K);
-               
+
+                    K.Margin = new Thickness(0, 10, 300, 10);
+                    K.Source = bi3;
+                    Label Shod = new Label();
+                    Shod.Content = "Дата создания: " + m.date.ToString().Substring(0, 10);
+                    Shod.Margin = new Thickness(500, 5, 100, 0);
+                    Label Shoshod = new Label();
+                    Label Shotype = new Label();
+                    string type;
+                    if (!m.IsAlter && !m.IsFunctional && !m.IsPow && !m.IsRandom && !m.IsWithout9) type = "Обычный ";
+                    else type = "";
+                    if (m.IsConverge) type += " сходящийся "; 
+                    else type += " несходящийся "; 
+                    Shotype.Content = type + "ряд";
+                    Shotype.Margin = new Thickness(500, 20, 100, 0);
+
+                    border.Child = Y;
+                    Y.Children.Add(K);
+                    Y.Children.Add(Shod);
+                    Y.Children.Add(Shotype);
+
+                }
+
+
 
             }
-
-
-            R.Close();
         }
 
         
@@ -101,19 +98,18 @@ namespace GENERATOR
         {
             try
             {
-                SqlCommand AddRyad = thisConnection.CreateCommand();
-                AddRyad.CommandText = "select * from RYADS where RYADID = " + Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2));
-                SqlDataReader R = AddRyad.ExecuteReader();
+               using (GeneratorContext t = new GeneratorContext()) {
+                    var urrentRyad = from p in t.Ryads
+                                  where p.Id.ToString() == ((Grid)sender).Name.ToString().Substring(2)
+                                  select p;
 
-                R.Read();
-                CurrentRyad = new Generator(R.GetValue(3).ToString(), R.GetValue(1).ToString());
-                App.Current = CurrentRyad;
-                MainWindow.setryad(CurrentRyad, Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                    MainWindow.setryad(urrentRyad.First(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                }
                 this.Close();
             }
-            catch
+            catch(Exception ex)
             {
-                Console.WriteLine("no");
+                MessageBox.Show(ex.ToString());
 
             }
         }

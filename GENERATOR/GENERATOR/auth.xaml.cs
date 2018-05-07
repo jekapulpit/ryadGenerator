@@ -24,7 +24,7 @@ namespace GENERATOR
     {
        
 
-        USER CurrentUser;
+      
         public auth()
         {
             InitializeComponent();
@@ -53,8 +53,8 @@ namespace GENERATOR
                 if (mach.Count() != 0)
                 {
                     App.newbee = new MainWindow();
-                    CurrentUser = mach.First<USER>();
-                    App.newbee.Resources.Add("CurrentUser", CurrentUser.username);
+                    App.CurrentUser = mach.First<USER>();
+                    App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
                     App.newbee.Show();
                     this.Close();
                 }

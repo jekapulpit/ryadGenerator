@@ -32,11 +32,15 @@ namespace GENERATOR
             InitializeComponent();
 
             currentuser = t;
+           
             using (GeneratorContext L = new GeneratorContext())
             {
-                
+                var G = from p in L.Ryads
+                        where p.Creator.username == currentuser
+                        select p;
                 picdownloader.index = L.Ryads.Count();
-                foreach (Generator m in L.Ryads)
+
+                foreach (Generator m in G)
                 {
                     Border border = new Border();
                     border.BorderThickness = new Thickness(0, 1, 0, 1);
@@ -103,7 +107,8 @@ namespace GENERATOR
                                   where p.Id.ToString() == ((Grid)sender).Name.ToString().Substring(2)
                                   select p;
 
-                    MainWindow.setryad(urrentRyad.First(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                    MainWindow.setryad(urrentRyad.First<Generator>(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                    
                 }
                 this.Close();
             }

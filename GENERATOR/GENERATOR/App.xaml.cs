@@ -18,9 +18,36 @@ namespace GENERATOR
         public static Generator Current { get; set; }
         public static MainWindow newbee;
 
-    }
-   
+        public static USER CurrentUser;
 
+    }
+
+    public class Test
+    {
+        [Key]
+        public int Id { get; set; }
+        public int Mark { get; set; }               //Оценка
+        [Column(TypeName = "Date")]
+        public DateTime date { get; set; }          //дата прохождения
+        public string USERusername { get; set; }
+        public USER USER { get; set; }            //пользователь, проходящий тест
+        static int N = 0;       //количество попыток
+        public Test()
+        {
+
+        }
+        public Test(USER user, DateTime date)
+        {
+            N++;
+            Mark = TRY();
+            this.USER = user;
+            this.date = date;
+        } //Конструктор, в немвызывается метод TRY()
+        public int TRY()
+        {
+            return 0;
+        }     //Метод, осуществляющий само тестирование
+    }
     public class Generator
     {
         [Key]
@@ -33,7 +60,9 @@ namespace GENERATOR
         public bool IsWithout9 { get; set; }        //Является ли ряд истонченным
         public string NumCoeffs { get; set; }     //Коэффициенты многочлена в числителе
         public string DomCoeffs { get; set; }     //Коэффициенты многочлена в знаменателе
-        public string Creator  { get; set; }     //создатель ряда
+        public string USERusername { get; set; }
+       
+        public USER Creator  { get; set; }     //создатель ряда
 
         public double PowOfNumerator { get; set; }  //Степень многочлена в числителе
         public double PowOfDominator { get; set; }  //Степень многочлена в знаменателе
@@ -158,6 +187,8 @@ namespace GENERATOR
     {
         public  static  readonly DependencyProperty usernameProperty = DependencyProperty.Register("username", typeof(string), typeof(USER));
         public ICollection<Generator> Ryads { get; set; }
+        public ICollection<Test> Tests { get; set; }
+
         [Key]
             public string username
         {
@@ -175,9 +206,14 @@ namespace GENERATOR
             password = Password;
             lvl = Lvl;
             Ryads = new List<Generator>();
+            Tests = new List<Test>();
+
         }
         public USER()
         {
+            Ryads = new List<Generator>();
+            Tests = new List<Test>();
+
 
         }
         public int PassTest()
@@ -194,27 +230,7 @@ namespace GENERATOR
 
 
     }
-    class Test
-    {
-        [Key]
-        int Id;
-        int Mark { get; set; }               //Оценка
-        [Column(TypeName = "Date")]
-        DateTime date { get; set; }          //дата прохождения
-        string user { get; set; }            //пользователь, проходящий тест
-        static int N = 0;       //количество попыток
-        public Test(string user, DateTime date)
-        {
-            N++;
-            Mark = TRY();
-            this.user = user;
-            this.date = date;
-        } //Конструктор, в немвызывается метод TRY()
-        public int TRY()
-        {
-            return 0;
-        }     //Метод, осуществляющий само тестирование
-    }
+   
 
 
     class USERContext : DbContext
@@ -225,6 +241,8 @@ namespace GENERATOR
 
         public DbSet<USER> Users { get; set; }
         public DbSet<Generator> Ryads { get; set; }
+        public DbSet<Test> Tests { get; set; }
+
     }
     class GeneratorContext : DbContext
     {
@@ -241,7 +259,6 @@ namespace GENERATOR
         public TestContext()
         : base("connect")
         { }
-        public DbSet<Generator> Ryads { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<USER> Users { get; set; }
     }

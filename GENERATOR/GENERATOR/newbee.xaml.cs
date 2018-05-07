@@ -24,15 +24,18 @@ namespace GENERATOR
     /// </summary>
     public partial class MainWindow : Window
     {
-        public USER CurrentUser;
-        public static Generator CurrentRYAD;
+        public static Generator CurrentRYAD = new Generator();
         BitmapImage bi3 = new BitmapImage();
         Label shod = new Label();
+       
+        
 
         public MainWindow()
         {
             InitializeComponent();
-
+           
+               
+            lolls.Children.Add(shod);
             using (GeneratorContext ryads = new GeneratorContext())
             {
                 picdownloader.index = ryads.Ryads.Count();
@@ -43,7 +46,7 @@ namespace GENERATOR
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            CurrentUser = null;
+            App.CurrentUser = null;
             auth T = new auth();
             T.Show();
             this.Close();
@@ -75,11 +78,12 @@ namespace GENERATOR
 
                     shod.Margin = new Thickness(10, 19, 416, 140);
                     shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
+                    CurrentRYAD.USERusername = App.CurrentUser.username;
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
 
 
-                    lolls.Children.Add(shod);
+                    
                 }
                  
             }
@@ -183,6 +187,8 @@ namespace GENERATOR
             App.newbee.bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + id + ".gif", UriKind.Absolute);
             App.newbee.bi3.EndInit();
             App.newbee.Rimage.Source = App.newbee.bi3;
+            App.newbee.shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
+
             CurrentRYAD = Curr;
 
 

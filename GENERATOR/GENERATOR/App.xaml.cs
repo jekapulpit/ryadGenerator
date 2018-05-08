@@ -151,9 +151,41 @@ namespace GENERATOR
         {
             return 1;
         }//Подсчет полной суммы ряда
-        public double CountPartSum(int n)
+        public double? CountPartSum(int n)
         {
-            return 1;
+           
+                double result = 0;
+                double num = 0;
+                double dom = 0;
+                string[] Coefs1 = this.NumCoeffs.Split(' ');
+                double[] coefs1 = new double[Coefs1.Count()];
+                string[] Coefs2 = this.DomCoeffs.Split(' ');
+                double[] coefs2 = new double[Coefs2.Count()]; ;
+
+                for (int j = 0; j < Coefs1.Count(); j++)
+                    coefs1[j] = Convert.ToDouble(Coefs1[j]);
+                for (int j = 0; j < Coefs2.Count(); j++)
+                    coefs2[j] = Convert.ToDouble(Coefs2[j]);
+            try
+            {
+                for (int i = 1; i <= n; i++)
+                {
+                    num = dom = 0;
+                    for (int j = 0; j <= PowOfNumerator; j++)
+                    {
+                        num += coefs1[j] * Math.Pow(i, j);
+                    }
+                    for (int j = 0; j <= PowOfDominator; j++)
+                    {
+                        dom += coefs2[j] * Math.Pow(i,j);
+                    }
+                    result += (num / dom);
+                }
+            } catch(NullReferenceException ex)
+            {
+                return null; 
+            }
+            return result;
         } //Подсчет суммы первых n элементов
         public double[] FindConvergeField()
         {

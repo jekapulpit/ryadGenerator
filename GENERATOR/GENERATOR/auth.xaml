@@ -8,41 +8,7 @@
         Title="auth" Height="450" Width="800">
     <Window.Resources>
         <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 1 / СТИЛЬ ДЛЯ КНОПКИ-->
-        <Style x:Key="reg" TargetType="Button">
-            <Setter Property="Background" Value="#EA4C87"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Duration="0:0:0.5"
-                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"                                          
-                                            To="White">
-                            </ColorAnimation>
-                            <ColorAnimation Duration="0:0:0.3"
-                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                                           
-                                            To="Black">
-                            </ColorAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Duration="0:0:0.5"
-                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                            
-                                            To="#EA4C87">
-                            </ColorAnimation>
-                            <ColorAnimation Duration="0:0:0.5"
-                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                             
-                                            To="White">
-                            </ColorAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
+        
         <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 1 / СТИЛЬ ДЛЯ КНОПКИ -->
         <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 2  / СТИЛЬ ДЛЯ ЛЭЙБЛА -->
         <Style x:Key="reg1" TargetType="Label">

@@ -30,13 +30,12 @@ namespace GENERATOR
         public history(string t)
         {
             InitializeComponent();
-
             currentuser = t;
-           
             using (GeneratorContext L = new GeneratorContext())
             {
                 var G = from p in L.Ryads
                         where p.Creator.username == currentuser
+                        orderby p.date descending
                         select p;
                 picdownloader.index = L.Ryads.Count();
 
@@ -106,9 +105,7 @@ namespace GENERATOR
                     var urrentRyad = from p in t.Ryads
                                   where p.Id.ToString() == ((Grid)sender).Name.ToString().Substring(2)
                                   select p;
-
                     MainWindow.setryad(urrentRyad.First<Generator>(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
-                    
                 }
                 this.Close();
             }

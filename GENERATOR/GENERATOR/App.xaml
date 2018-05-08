@@ -4,6 +4,41 @@
              xmlns:local="clr-namespace:GENERATOR"
              StartupUri="auth.xaml">
     <Application.Resources>
+        <Style x:Key="reg" TargetType="Button">
+            <Setter Property="Background" Value="#EA4C87"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.5"
+                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"                                          
+                                            To="White">
+                            </ColorAnimation>
+                            <ColorAnimation Duration="0:0:0.3"
+                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                                           
+                                            To="Black">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.5"
+                                            Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                            
+                                            To="#EA4C87">
+                            </ColorAnimation>
+                            <ColorAnimation Duration="0:0:0.5"
+                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                             
+                                            To="White">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
         <!--ПЕРЕПЕСТИТЬ В ДРУГОЙ ФАЙЛ / ТЕМНАЯ ТЕМА В ПРИНЦИПЕ 1 -->
         <SolidColorBrush x:Key="loginback" 
                      Color="#2B3238">

@@ -27,7 +27,11 @@ namespace GENERATOR
         public static Generator CurrentRYAD = new Generator();
         BitmapImage bi3 = new BitmapImage();
         Label shod = new Label();
-       
+        Label sum1 = new Label();
+        Label N = new Label();
+        Label sum = new Label();
+        TextBox m = new TextBox();
+        Button S = new Button();
         
 
         public MainWindow()
@@ -36,6 +40,12 @@ namespace GENERATOR
            
                
             lolls.Children.Add(shod);
+            lolls.Children.Add(sum1);
+            lolls.Children.Add(m);
+            lolls.Children.Add(N);
+            lolls.Children.Add(S);
+            S.Visibility = Visibility.Hidden;
+            S.Style = (Style)Resources["reg"];
             using (GeneratorContext ryads = new GeneratorContext())
             {
                 picdownloader.index = ryads.Ryads.Count();
@@ -51,7 +61,7 @@ namespace GENERATOR
             T.Show();
             this.Close();
         }
-
+       
         private void GenerateR(object sender, RoutedEventArgs e)
         {
             try
@@ -77,7 +87,18 @@ namespace GENERATOR
                     //R.Close();
 
                     shod.Margin = new Thickness(10, 19, 416, 140);
+                    sum1.Margin = new Thickness(10, 34, 416, 125);
+                    N.Margin = new Thickness(10, 55, 740, 105);
+                    m.Margin = new Thickness(40, 57, 710, 113);
+                    S.Margin = new Thickness(10, 90, 693, 80);
+                    S.Content = "Рассчитать";
+                    S.Style = (Style)Resources["reg"];
+                    S.Click += setsum;
+                    S.Visibility = Visibility.Visible;
+
                     shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
+                    sum1.Content = "Рассчитать сумму первых N членов: ";
+                    N.Content = "N =";
                     CurrentRYAD.USERusername = App.CurrentUser.username;
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
@@ -182,15 +203,24 @@ namespace GENERATOR
         }
         public static void setryad(Generator Curr, int id)
         {
-                
+            CurrentRYAD = Curr;
+
+            App.newbee.bi3 = new BitmapImage();
             App.newbee.bi3.BeginInit();
             App.newbee.bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + id + ".gif", UriKind.Absolute);
             App.newbee.bi3.EndInit();
             App.newbee.Rimage.Source = App.newbee.bi3;
             App.newbee.shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
-
-            CurrentRYAD = Curr;
-
+            App.newbee.sum1.Margin = new Thickness(10, 34, 416, 125);
+            App.newbee.N.Margin = new Thickness(10, 55, 740, 105);
+            App.newbee.m.Margin = new Thickness(40, 57, 710, 113);
+            App.newbee.S.Margin = new Thickness(10, 90, 693, 80);
+            App.newbee.S.Content = "Рассчитать";
+         
+            App.newbee.S.Click += App.newbee.setsum;
+            App.newbee.S.Visibility = Visibility.Visible;
+            App.newbee.sum1.Content = "Рассчитать сумму первых N членов: ";
+            App.newbee.N.Content = "N =";
 
 
         }
@@ -201,7 +231,17 @@ namespace GENERATOR
             T.Show();
 
            
-      }
+        }
+        private void setsum(object sender, RoutedEventArgs e)
+        {
+            double? res = CurrentRYAD.CountPartSum(Convert.ToInt32(m.Text)); 
+
+            if(res == null) sum1.Content = "Рассчитать сумму первых N членов: бесконечность";
+            else
+            {
+                sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString();
+            }
+        }
     }
 
 }

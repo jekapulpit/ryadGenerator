@@ -33,7 +33,11 @@
             <Border Grid.Column="1" BorderThickness="0 0 2 2" BorderBrush="white"></Border>
 
         </Grid>
-        <Grid  x:Name="lolls" Grid.Row="2" Background="White"></Grid>
+        <Grid  x:Name="lolls" Grid.Row="2" Background="White">
+
+          
+            
+        </Grid>
 
 
         <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
@@ -61,7 +65,7 @@
         <ControlLib:NumericUpDown x:Name="chisl" Grid.Column="0" Margin="233,53,499,121" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
         <ControlLib:NumericUpDown x:Name="znam" Grid.Column="0" Margin="233,78,499,96" Grid.Row="1" Width="50" MaxValue="6"  MinValue="0" Height="20"/>
         <Label Grid.Row="1" Margin="415,5,0,164" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Height="Auto">Пункт 2:</Label>
-        <Button x:Name="Generate" Grid.Row="2" Margin="333,37,337,35" Content="Generate" Click="GenerateR" Cursor="Hand"/>
+        <Button x:Name="Generate" Grid.Row="2" Margin="330,37,340,35" Content="Generate" Click="GenerateR" Cursor="Hand" Style="{DynamicResource reg}"/>
         <Label Margin="415,30,44,131"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="Введите коэффициенты при переменных числителя" Grid.Row="1"/>
         <Label Margin="415,51,98,116"  Style="{DynamicResource Labels}" Width="Auto" Height="Auto" Content="(от самой низкой степени к самой высокой)" Grid.Row="1" />
         <TextBox  x:Name="Koeffs1" Height="20px" Margin="423,78,227,96" Grid.Row="1" />

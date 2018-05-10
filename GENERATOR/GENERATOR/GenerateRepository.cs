@@ -30,5 +30,9 @@ namespace GENERATOR
         {
             return null;
         }
+        public int Count()
+        {
+            return this.Ryads.Ryads.Count();
+        }
     }
 }

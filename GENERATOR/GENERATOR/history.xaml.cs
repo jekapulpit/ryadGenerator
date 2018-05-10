@@ -31,13 +31,11 @@ namespace GENERATOR
         {
             InitializeComponent();
             currentuser = t;
-            using (GeneratorContext L = new GeneratorContext())
-            {
-                var G = from p in L.Ryads
-                        where p.Creator.username == currentuser
-                        orderby p.date descending
-                        select p;
-                picdownloader.index = L.Ryads.Count();
+           
+                RYAD list = new RYAD();
+                var G=list.Ryads.GetAll(currentuser);
+                
+                picdownloader.index = list.Ryads.Count();
 
                 foreach (Generator m in G)
                 {
@@ -79,7 +77,7 @@ namespace GENERATOR
                     Y.Children.Add(Shod);
                     Y.Children.Add(Shotype);
 
-                }
+                
 
 
 

@@ -143,13 +143,79 @@ namespace GENERATOR
             }
             else return false;
         }   //Проверка, является ли ряд сходящимся
-        public double CountN(int n)
+        public double? CountN(int n)
         {
-            return 1;
+            double num = 0;
+            double dom = 0;
+            string[] Coefs1 = this.NumCoeffs.Split(' ');
+            double[] coefs1 = new double[Coefs1.Count()];
+            string[] Coefs2 = this.DomCoeffs.Split(' ');
+            double[] coefs2 = new double[Coefs2.Count()]; ;
+
+            for (int j = 0; j < Coefs1.Count(); j++)
+                coefs1[j] = Convert.ToDouble(Coefs1[j]);
+            for (int j = 0; j < Coefs2.Count(); j++)
+                coefs2[j] = Convert.ToDouble(Coefs2[j]);
+            try
+            {
+               
+              
+                  
+                    for (int j = 0; j <= PowOfNumerator; j++)
+                    {
+                        num += coefs1[j] * Math.Pow(n, j);
+                    }
+                    for (int j = 0; j <= PowOfDominator; j++)
+                    {
+                        dom += coefs2[j] * Math.Pow(n, j);
+                    }
+                   
+                    
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+            return (num/dom);
         } //Подсчет n-ного члена ряда
-        public double CountFullSum()
+        public double? CountFullSum()
         {
-            return 1;
+            if (!IsConverge) return null;
+            double result = 0;
+            double num = 0;
+            double dom = 0;
+            string[] Coefs1 = this.NumCoeffs.Split(' ');
+            double[] coefs1 = new double[Coefs1.Count()];
+            string[] Coefs2 = this.DomCoeffs.Split(' ');
+            double[] coefs2 = new double[Coefs2.Count()]; ;
+
+            for (int j = 0; j < Coefs1.Count(); j++)
+                coefs1[j] = Convert.ToDouble(Coefs1[j]);
+            for (int j = 0; j < Coefs2.Count(); j++)
+                coefs2[j] = Convert.ToDouble(Coefs2[j]);
+            try
+            {
+                int i = 1;
+                do
+                {
+                    num = dom = 0;
+                    for (int j = 0; j <= PowOfNumerator; j++)
+                    {
+                        num += coefs1[j] * Math.Pow(i, j);
+                    }
+                    for (int j = 0; j <= PowOfDominator; j++)
+                    {
+                        dom += coefs2[j] * Math.Pow(i, j);
+                    }
+                    result += (num / dom);
+                    i++;
+                } while (num / dom > 0.0001);
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+            return result;
         }//Подсчет полной суммы ряда
         public double? CountPartSum(int n)
         {
@@ -191,8 +257,7 @@ namespace GENERATOR
         {
             return null;
         } //Нахождение области сходимости
-       
-
+        
 
     }
     static class picdownloader
@@ -262,10 +327,10 @@ namespace GENERATOR
 
 
     }
-   
 
 
-    class USERContext : DbContext
+
+    public class USERContext : DbContext
     {
         public USERContext()
         : base("connect")
@@ -276,7 +341,7 @@ namespace GENERATOR
         public DbSet<Test> Tests { get; set; }
 
     }
-    class GeneratorContext : DbContext
+    public class GeneratorContext : DbContext
     {
         public GeneratorContext()
         : base("connect")
@@ -286,7 +351,7 @@ namespace GENERATOR
         public DbSet<Generator> Ryads { get; set; }
 
     }
-    class TestContext : DbContext
+    public class TestContext : DbContext
     {
         public TestContext()
         : base("connect")
@@ -294,4 +359,11 @@ namespace GENERATOR
         public DbSet<Test> Tests { get; set; }
         public DbSet<USER> Users { get; set; }
     }
+    public interface IRepository<T> where T:  class
+    {
+        IEnumerable<T> GetAll(string t);
+        void Create(T item);
+        T Check(string a, string b); 
+    }
+
 }

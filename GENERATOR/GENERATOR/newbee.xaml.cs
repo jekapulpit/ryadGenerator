@@ -41,6 +41,8 @@ namespace GENERATOR
                
             lolls.Children.Add(shod);
             lolls.Children.Add(sum1);
+            lolls.Children.Add(sum);
+            shod.Margin = new Thickness(10, 19, 416, 140);
             lolls.Children.Add(m);
             lolls.Children.Add(N);
             lolls.Children.Add(S);
@@ -90,7 +92,8 @@ namespace GENERATOR
                     sum1.Margin = new Thickness(10, 34, 416, 125);
                     N.Margin = new Thickness(10, 55, 740, 105);
                     m.Margin = new Thickness(40, 57, 710, 113);
-                    S.Margin = new Thickness(10, 90, 693, 80);
+                    S.Margin = new Thickness(10, 85, 693, 80);
+                    sum.Margin = new Thickness(10, 110, 416, 45);
                     S.Content = "Рассчитать";
                     S.Style = (Style)Resources["reg"];
                     S.Click += setsum;
@@ -98,8 +101,11 @@ namespace GENERATOR
 
                     shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
                     sum1.Content = "Рассчитать сумму первых N членов: ";
+                    sum.Content = "Полная сумма ряда: ";
+                    sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
                     N.Content = "N =";
                     CurrentRYAD.USERusername = App.CurrentUser.username;
+                 
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
 
@@ -215,12 +221,16 @@ namespace GENERATOR
             App.newbee.N.Margin = new Thickness(10, 55, 740, 105);
             App.newbee.m.Margin = new Thickness(40, 57, 710, 113);
             App.newbee.S.Margin = new Thickness(10, 90, 693, 80);
+            App.newbee.sum.Margin = new Thickness(10, 110, 416, 45);
+
             App.newbee.S.Content = "Рассчитать";
          
             App.newbee.S.Click += App.newbee.setsum;
             App.newbee.S.Visibility = Visibility.Visible;
             App.newbee.sum1.Content = "Рассчитать сумму первых N членов: ";
             App.newbee.N.Content = "N =";
+            App.newbee.sum.Content = "Полная сумма ряда: ";
+            App.newbee.sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
 
 
         }
@@ -239,7 +249,7 @@ namespace GENERATOR
             if(res == null) sum1.Content = "Рассчитать сумму первых N членов: бесконечность";
             else
             {
-                sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString();
+                sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString().Substring(0, 7);
             }
         }
     }

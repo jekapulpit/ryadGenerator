@@ -22,38 +22,19 @@ namespace GENERATOR
     /// </summary>
     public partial class auth : Window
     {
-       
-
-      
         public auth()
         {
             InitializeComponent();
-          
-
-
-
         }
         private void But_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-
-            using (USERContext db = new USERContext())
+            using (RYAD db = new RYAD())
             {
-               
-                
-                var t = db.Users;
-
-                var mach =   from p in t
-                             where p.username == Log.Text
-                             select p;
-
-
-                if (mach.Count() != 0)
+                USER T = db.Users.Check(Log.Text , Pass.Password.GetHashCode().ToString());
+                if (T != null)
                 {
                     App.newbee = new MainWindow();
-                    App.CurrentUser = mach.First<USER>();
+                    App.CurrentUser = T;
                     App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
                     App.newbee.Show();
                     this.Close();
@@ -64,9 +45,7 @@ namespace GENERATOR
                     Pass.BorderBrush = new SolidColorBrush(Colors.Red);
                     validate.Visibility = Visibility.Visible;
                 }
-
             }
-
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)

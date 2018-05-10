@@ -97,6 +97,9 @@
     <Compile Include="history.xaml.cs">
       <DependentUpon>history.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Lvl.xaml.cs">
+      <DependentUpon>Lvl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="normal.xaml.cs">
       <DependentUpon>normal.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="history.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Lvl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

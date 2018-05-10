@@ -17,6 +17,7 @@ namespace GENERATOR
     {
         public static Generator Current { get; set; }
         public static MainWindow newbee;
+        public static normal normal;
 
         public static USER CurrentUser;
 
@@ -99,39 +100,7 @@ namespace GENERATOR
              
              
         }   //Конструктор1
-        public Generator(string url,string  type)
-        {
-           
-            path = url;
-
-            if (type == "usual")
-            {
-                IsFunctional = false;
-                IsPow = false;
-                IsAlter = false;
-                
-                IsRandom = false;
-                IsWithout9 = false;
-            }
-            else
-            {
-                string[] Type = type.Split('+');
-                foreach(string  t   in Type)
-                {
-                    IsAlter = (t == "alter" ? true : false);
-                    IsPow = (t == "pow" ? true : false);
-                    IsFunctional = (t == "func" ? true : false);
-                    IsRandom = (t == "rand" ? true : false);
-                    IsWithout9 = (t == "ukr" ? true : false);
-                }
-
-            }
-
-            IsConverge = CheckConverge();
-
-
-
-        }   //Конструктор2
+        
         public bool CheckConverge()
         {
             if (!IsFunctional && !IsPow)
@@ -268,6 +237,9 @@ namespace GENERATOR
         public static string start = "%7B";
         public static string end = "%7D";
         public static string stepen = "%5E";
+        public static string Alter = "%28-1%29%5En";
+        public static string skobka1 = "%28";
+        public static string skobka2 = "%29";
         public static int index = 0;  //количество картинок (или количество всех рядов)   
         
         public static void getpic(string url)

@@ -25,18 +25,13 @@ namespace GENERATOR
     {
         public string currentuser;
         Generator CurrentRyad;
-       
-       
-        public history(string t)
+         public history(string t)
         {
             InitializeComponent();
             currentuser = t;
-           
-                RYAD list = new RYAD();
-                var G=list.Ryads.GetAll(currentuser);
-                
+            using (RYAD list = new RYAD()) { 
+                var G = list.Ryads.GetAll(currentuser);
                 picdownloader.index = list.Ryads.Count();
-
                 foreach (Generator m in G)
                 {
                     Border border = new Border();
@@ -55,8 +50,6 @@ namespace GENERATOR
                     bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + m.Id + ".gif", UriKind.Absolute);
                     bi3.EndInit();
                     Image K = new Image();
-
-
                     K.Margin = new Thickness(0, 10, 300, 10);
                     K.Source = bi3;
                     Label Shod = new Label();
@@ -67,25 +60,17 @@ namespace GENERATOR
                     string type;
                     if (!m.IsAlter && !m.IsFunctional && !m.IsPow && !m.IsRandom && !m.IsWithout9) type = "Обычный ";
                     else type = "";
-                    if (m.IsConverge) type += " сходящийся "; 
-                    else type += " несходящийся "; 
+                    if (m.IsConverge) type += " сходящийся ";
+                    else type += " несходящийся ";
                     Shotype.Content = type + "ряд";
                     Shotype.Margin = new Thickness(500, 20, 100, 0);
-
                     border.Child = Y;
                     Y.Children.Add(K);
                     Y.Children.Add(Shod);
                     Y.Children.Add(Shotype);
-
-                
-
-
-
+                }
             }
         }
-
-        
-
         public void backmark(object sender,MouseEventArgs e) {
             Grid temp = (Grid)sender;
             temp.Background = new SolidColorBrush(Colors.SkyBlue);
@@ -110,7 +95,6 @@ namespace GENERATOR
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-
             }
         }
 

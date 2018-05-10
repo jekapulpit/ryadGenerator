@@ -30,8 +30,12 @@ namespace GENERATOR
         Label sum1 = new Label();
         Label N = new Label();
         Label sum = new Label();
+        Label nchlen = new Label();
+        Label nchlen1 = new Label();
         TextBox m = new TextBox();
+        TextBox m1 = new TextBox();
         Button S = new Button();
+        Button S1 = new Button();
         
 
         public MainWindow()
@@ -42,11 +46,18 @@ namespace GENERATOR
             lolls.Children.Add(shod);
             lolls.Children.Add(sum1);
             lolls.Children.Add(sum);
+            lolls.Children.Add(nchlen);
             shod.Margin = new Thickness(10, 19, 416, 140);
             lolls.Children.Add(m);
             lolls.Children.Add(N);
             lolls.Children.Add(S);
+            lolls.Children.Add(m1);
+            lolls.Children.Add(nchlen1);
+
+            m1.Visibility = Visibility.Hidden;
+            lolls.Children.Add(S1);
             S.Visibility = Visibility.Hidden;
+            S1.Visibility = Visibility.Hidden;
             S.Style = (Style)Resources["reg"];
             using (GeneratorContext ryads = new GeneratorContext())
             {
@@ -94,23 +105,28 @@ namespace GENERATOR
                     m.Margin = new Thickness(40, 57, 710, 113);
                     S.Margin = new Thickness(10, 85, 693, 80);
                     sum.Margin = new Thickness(10, 110, 416, 45);
+                    nchlen.Margin = new Thickness(10, 130, 416, 30);
+                    nchlen1.Margin = new Thickness(10, 155, 740, 5);
+                    S1.Margin = new Thickness(100, 157, 600, 13);
+                    m1.Margin = new Thickness(40, 157, 710, 13);
+                    m1.Visibility = Visibility.Visible;
+                    S1.Visibility = Visibility.Visible;
                     S.Content = "Рассчитать";
                     S.Style = (Style)Resources["reg"];
                     S.Click += setsum;
+                    S1.Content = "Рассчитать";
+                    S1.Click += setn;
                     S.Visibility = Visibility.Visible;
-
                     shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
                     sum1.Content = "Рассчитать сумму первых N членов: ";
                     sum.Content = "Полная сумма ряда: ";
                     sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
                     N.Content = "N =";
+                    nchlen.Content = "Рассчитать n-ый член ряда: ";
+                    nchlen1.Content = "n = ";
                     CurrentRYAD.USERusername = App.CurrentUser.username;
-                 
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
-
-
-                    
                 }
                  
             }
@@ -222,9 +238,18 @@ namespace GENERATOR
             App.newbee.m.Margin = new Thickness(40, 57, 710, 113);
             App.newbee.S.Margin = new Thickness(10, 90, 693, 80);
             App.newbee.sum.Margin = new Thickness(10, 110, 416, 45);
+            App.newbee.nchlen.Content = "Рассчитать n-ый член ряда: ";
+            App.newbee.nchlen.Margin = new Thickness(10, 130, 416, 30);
 
             App.newbee.S.Content = "Рассчитать";
-         
+            App.newbee.S1.Margin = new Thickness(100, 157, 600, 13);
+            App.newbee.m1.Margin = new Thickness(40, 157, 710, 13);
+            App.newbee.m1.Visibility = Visibility.Visible;
+            App.newbee.S1.Visibility = Visibility.Visible;
+            App.newbee.S1.Content = "Рассчитать";
+            App.newbee.S1.Click += App.newbee.setn;
+            App.newbee.nchlen1.Margin = new Thickness(10, 155, 740, 5);
+            App.newbee.nchlen1.Content = "n = ";
             App.newbee.S.Click += App.newbee.setsum;
             App.newbee.S.Visibility = Visibility.Visible;
             App.newbee.sum1.Content = "Рассчитать сумму первых N членов: ";
@@ -250,6 +275,16 @@ namespace GENERATOR
             else
             {
                 sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString().Substring(0, 7);
+            }
+        }
+        private void setn(object sender, RoutedEventArgs e)
+        {
+            double? res = CurrentRYAD.CountN(Convert.ToInt32(m1.Text));
+
+            if (res == null) nchlen.Content = "Рассчитать n-ый член ряда: бесконечность";
+            else
+            {
+                nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString().Substring(0, 7);
             }
         }
     }

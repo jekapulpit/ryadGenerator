@@ -16,7 +16,6 @@ namespace GENERATOR
         }
         public IEnumerable<USER> GetAll(string s) {
             return null;
-
         }
         public void Create(USER item)
         {

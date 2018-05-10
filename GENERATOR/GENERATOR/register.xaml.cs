@@ -23,8 +23,6 @@ namespace GENERATOR
         public register()
         {
             InitializeComponent();
-           
-            
             Log.BorderBrush = null;
             Pass.BorderBrush = null;
             Conf.BorderBrush = null;
@@ -43,11 +41,9 @@ namespace GENERATOR
         {
             if (Conf.Password != Pass.Password)
             {
-
                 Pass.BorderBrush = new SolidColorBrush(Colors.Red);
                 Conf.BorderBrush = new SolidColorBrush(Colors.Red);
                 Confirm.Opacity = 1;
-              
                 return false;
             }
             else if (Pass.Password.Length < 6)
@@ -61,25 +57,16 @@ namespace GENERATOR
                 Pass.BorderBrush = null;
                 Conf.BorderBrush = null;
                 Confirm.Opacity = 0;
-              
                 return true;
-               
             }
         }
-
         private void ButReg_Click(object sender, RoutedEventArgs e)
         {
             using (USERContext Users = new USERContext())
             {
-
-
                 if (validate(this, null))
                 {
-
-
                     bool match = false;
-
-
                     if (!match)
                     {
                         USER T = new USER(Log.Text, (Pass.Password).GetHashCode().ToString(), 1);

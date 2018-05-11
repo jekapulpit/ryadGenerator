@@ -97,14 +97,8 @@
     <Compile Include="history.xaml.cs">
       <DependentUpon>history.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Lvl.xaml.cs">
-      <DependentUpon>Lvl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="normal.xaml.cs">
       <DependentUpon>normal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="pro.xaml.cs">
-      <DependentUpon>pro.xaml</DependentUpon>
     </Compile>
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
@@ -117,10 +111,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="history.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Lvl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,10 +130,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="normal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="pro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -31,8 +31,4 @@ E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.xml
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\bin\Debug\EntityFramework.SqlServer.xml
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\normal.g.cs
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\pro.g.cs
 E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\normal.baml
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\pro.baml
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\Lvl.g.cs
-E:\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\Курсач\GENERATOR\GENERATOR\obj\Debug\Lvl.baml

@@ -27,6 +27,8 @@ namespace GENERATOR
             Pass.BorderBrush = null;
             Conf.BorderBrush = null;
             Confirm.Opacity = 0;
+            IsAlter_Checked(IsAlter, null);
+
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
@@ -66,10 +68,13 @@ namespace GENERATOR
             {
                 if (validate(this, null))
                 {
-                    bool match = false;
-                    if (!match)
+                    IEnumerable<USER> t = from p in Users.Users
+                            where p.username == Log.Text
+                            select p;
+
+                    if (t.Count() == 0)
                     {
-                        USER T = new USER(Log.Text, (Pass.Password).GetHashCode().ToString(), 1);
+                        USER T = new USER(Log.Text, (Pass.Password).GetHashCode().ToString(), (bool)IsAlter.IsChecked ? 1 : 0);
                         Users.Users.Add(T);
                         Users.SaveChanges();
                         auth auth = new auth();
@@ -82,6 +87,19 @@ namespace GENERATOR
                         Log.BorderBrush = new SolidColorBrush(Colors.Red);
                     }
                 }
+            }
+        }
+
+        private void IsAlter_Checked(object sender, RoutedEventArgs e)
+        {
+            if((bool)((CheckBox)sender).IsChecked == false)
+            {
+                Help.Text = "У вас практически отсутствуют знания по теме 'Ряды' и вы хотели бы ознакомиться с теорией и начать с малого"; 
+            }
+            else
+            {
+                Help.Text = "У вас неплохой или даже уверенный уровень знаний по теме 'ряды', вы хотите сразу приступить к генерации, изначально ознакомившись с функционалом программы";
+
             }
         }
     }

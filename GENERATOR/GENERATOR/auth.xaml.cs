@@ -33,10 +33,30 @@ namespace GENERATOR
                 USER T = db.Users.Check(Log.Text , Pass.Password.GetHashCode().ToString());
                 if (T != null)
                 {
-                    App.newbee = new MainWindow();
                     App.CurrentUser = T;
-                    App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
-                    App.newbee.Show();
+                    if (App.CurrentUser.lvl == 1)
+                    {
+                        App.normal = new normal();
+
+                        try
+                        {
+                            App.normal.Resources.Add("CurrentUser", App.CurrentUser.username);
+                           
+                            App.normal.Show();
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                          
+                    }
+                    else
+                    {
+                        App.newbee = new MainWindow();
+
+                        App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
+                        App.newbee.Show();
+                    }
                     this.Close();
                 }
                 else

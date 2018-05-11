@@ -60,8 +60,13 @@ namespace GENERATOR
                     string type;
                     if (!m.IsAlter && !m.IsFunctional && !m.IsPow && !m.IsRandom && !m.IsWithout9) type = "Обычный ";
                     else type = "";
-                    if (m.IsConverge) type += " сходящийся ";
-                    else type += " несходящийся ";
+                    if (m.IsConverge && !m.IsPow && !m.IsWithout9 && !m.IsRandom) type += "сходящийся ";
+                    if (!m.IsConverge && !m.IsPow && !m.IsWithout9 && !m.IsRandom) type += "рассходящийся ";
+                    if(m.IsAlter) type += "знакопеременный ";
+                    if(m.IsPow) type += "степенной ";
+                    if(m.IsWithout9) type += "истонченный ";
+                    if(m.IsRandom) type += "случайный ";
+                    
                     Shotype.Content = type + "ряд";
                     Shotype.Margin = new Thickness(500, 20, 100, 0);
                     border.Child = Y;
@@ -88,7 +93,11 @@ namespace GENERATOR
                     var urrentRyad = from p in t.Ryads
                                   where p.Id.ToString() == ((Grid)sender).Name.ToString().Substring(2)
                                   select p;
+                    if(App.CurrentUser.lvl == 1)
+                        normal.setryad(urrentRyad.First<Generator>(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+                    else    
                     MainWindow.setryad(urrentRyad.First<Generator>(), Convert.ToInt32(((Grid)sender).Name.ToString().Substring(2)));
+
                 }
                 this.Close();
             }

@@ -54,9 +54,9 @@ namespace GENERATOR
         [Key]
         public int Id { get; set; }
         public bool IsFunctional { get; set; }      //Является ли ряд функциональным
-        public bool IsPow       { get; set; }      //Является ли ряд степенным
-        public bool IsConverge        { get; set; }//Является ли ряд сходящимся 
-        public bool IsAlter          { get; set; } //Является ли ряд знакопеременным
+        public bool IsPow  { get; set; }      //Является ли ряд степенным
+        public bool IsConverge  { get; set; }//Является ли ряд сходящимся 
+        public bool IsAlter  { get; set; } //Является ли ряд знакопеременным
         public bool IsRandom { get; set; }          //Является ли ряд СЛУЧАЙНЫМ
         public bool IsWithout9 { get; set; }        //Является ли ряд истонченным
         public string NumCoeffs { get; set; }     //Коэффициенты многочлена в числителе
@@ -78,7 +78,11 @@ namespace GENERATOR
      
         }   //Конструктор
 
-        public Generator(int st1, int st2, string koeffs1,  string koeffs2, string url)
+        public Generator(int st1,
+                         int st2, 
+                         string koeffs1,  
+                         string koeffs2, 
+                         string url)
         {
             date = DateTime.Today;
             PowOfDominator = st2;
@@ -100,16 +104,46 @@ namespace GENERATOR
              
              
         }   //Конструктор1
-        
+        public Generator(int st1, 
+                         int st2, 
+                         string koeffs1, 
+                         string koeffs2, 
+                         string url, 
+                         bool isalter, 
+                         bool ispow, 
+                         bool israndom, 
+                         bool iswithout9)
+        {
+            date = DateTime.Today;
+            PowOfDominator = st2;
+            PowOfNumerator = st1;
+            NumCoeffs = koeffs1;
+            DomCoeffs = koeffs2;
+            path = url;
+
+            IsFunctional = false;
+            IsPow = ispow;
+            IsAlter = isalter;
+      
+            IsRandom = israndom;
+            IsWithout9 = iswithout9;
+            Id = picdownloader.index;
+
+            IsConverge = CheckConverge();
+
+
+
+        }   //Конструктор1
         public bool CheckConverge()
         {
             if (!IsFunctional && !IsPow)
             {
                 if (IsRandom || IsWithout9) return true;
-                if (IsAlter && PowOfDominator > PowOfNumerator) return true;
+                if (IsAlter && (PowOfDominator > PowOfNumerator)) return true;
                 if (PowOfDominator - PowOfNumerator > 1) return true;
                 return false;
             }
+            
             else return false;
         }   //Проверка, является ли ряд сходящимся
         public double? CountN(int n)
@@ -145,6 +179,11 @@ namespace GENERATOR
             {
                 return null;
             }
+            if (IsAlter && (n % 2 != 0))
+            {
+                return -(num / dom);
+            }
+            else
             return (num/dom);
         } //Подсчет n-ного члена ряда
         public double? CountFullSum()
@@ -176,9 +215,12 @@ namespace GENERATOR
                     {
                         dom += coefs2[j] * Math.Pow(i, j);
                     }
-                    result += (num / dom);
+                    if(IsAlter)
+                    result += (Math.Pow(-1,i)*(num / dom));
+                    else result += (num / dom);
+
                     i++;
-                } while (num / dom > 0.0001);
+                } while (Math.Abs(num / dom) > 0.0001);
             }
             catch (NullReferenceException ex)
             {
@@ -214,7 +256,9 @@ namespace GENERATOR
                     {
                         dom += coefs2[j] * Math.Pow(i,j);
                     }
-                    result += (num / dom);
+                    if (IsAlter)
+                        result += (Math.Pow(-1, i) * (num / dom));
+                    else result += (num / dom);
                 }
             } catch(NullReferenceException ex)
             {
@@ -233,11 +277,11 @@ namespace GENERATOR
     {
         public static string starturl = "https://latex.codecogs.com/gif.latex?%5Csum_%7B1%7D%5E%7B%5Cinfty%7D";
         public static string drob = "%5Cfrac";
-
         public static string start = "%7B";
         public static string end = "%7D";
         public static string stepen = "%5E";
         public static string Alter = "%28-1%29%5En";
+        public static string Pow = "%28x-a%29%5En";
         public static string skobka1 = "%28";
         public static string skobka2 = "%29";
         public static int index = 0;  //количество картинок (или количество всех рядов)   
@@ -254,7 +298,9 @@ namespace GENERATOR
     }
     public class USER : DependencyObject
     {
-        public  static  readonly DependencyProperty usernameProperty = DependencyProperty.Register("username", typeof(string), typeof(USER));
+        public  static  readonly DependencyProperty usernameProperty = DependencyProperty.Register("username", 
+                                                                                                    typeof(string), 
+                                                                                                    typeof(USER));
         public ICollection<Generator> Ryads { get; set; }
         public ICollection<Test> Tests { get; set; }
 
@@ -268,7 +314,7 @@ namespace GENERATOR
         public string password { get; set; }
        
        
-        int lvl { get; set; }                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
+        public int lvl { get; set; }                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
         public USER(string Username, string Password, int Lvl)
         {
             username = Username;

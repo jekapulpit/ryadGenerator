@@ -19,7 +19,6 @@ namespace GENERATOR
     /// </summary>
     public partial class normal : Window
     {
-
         public static Generator CurrentRYAD = new Generator();
         BitmapImage bi3 = new BitmapImage();
         Label shod = new Label();
@@ -79,22 +78,13 @@ namespace GENERATOR
                 {
                     GetRyad();
                     picdownloader.getpic(CurrentRYAD.path);
-
-
-
-
                     BitmapImage bi3 = new BitmapImage();
                     bi3.BeginInit();
                     bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + (CurrentRYAD.Id + 1) + ".gif", UriKind.Absolute);
                     bi3.EndInit();
-
                     Rimage.Source = bi3;
-
-
                     Koeffs1.BorderBrush = null;
                     Koeffs1.BorderBrush = null;
-                    //R.Close();
-
                     shod.Margin = new Thickness(10, 19, 416, 140);
                     sum1.Margin = new Thickness(10, 34, 416, 125);
                     N.Margin = new Thickness(10, 55, 740, 105);
@@ -107,6 +97,11 @@ namespace GENERATOR
                     m1.Margin = new Thickness(40, 157, 710, 13);
                     m1.Visibility = Visibility.Visible;
                     S1.Visibility = Visibility.Visible;
+                    N.Visibility = Visibility.Visible;
+                    nchlen.Visibility = Visibility.Visible;
+                   nchlen1.Visibility = Visibility.Visible;
+                   
+                    sum.Visibility = Visibility.Visible;
                     S.Content = "Рассчитать";
                     S.Style = (Style)Resources["reg"];
                     S.Click += setsum;
@@ -120,6 +115,19 @@ namespace GENERATOR
                     N.Content = "N =";
                     nchlen.Content = "Рассчитать n-ый член ряда: ";
                     nchlen1.Content = "n = ";
+                    if (CurrentRYAD.IsPow)
+                    {
+                        N.Visibility = Visibility.Hidden;
+                        nchlen.Visibility = Visibility.Hidden;
+                        nchlen1.Visibility = Visibility.Hidden;
+                        S.Visibility = Visibility.Hidden;
+                        m.Visibility = Visibility.Hidden;
+                        m1.Visibility = Visibility.Hidden;
+                        S1.Visibility = Visibility.Hidden;
+                        sum.Visibility = Visibility.Hidden;
+                        sum1.Content = "Радиус сходипости: -a<|x|<a";
+                        shod.Content = "Область сходипости: |x-a|<1";
+                    }
                     CurrentRYAD.USERusername = App.CurrentUser.username;
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
@@ -142,8 +150,10 @@ namespace GENERATOR
                     throw new Exception();
 
                 result += picdownloader.start;
+                if ((bool)IsAlter.IsChecked) result += picdownloader.Alter;
                 result += picdownloader.drob;
                 result += picdownloader.start;
+                
                 bool flag = true;
                 for (int i = (int)chisl.Value; i >= 0; i--)
                 {
@@ -210,10 +220,11 @@ namespace GENERATOR
 
                 }
                 result += picdownloader.end;
+                if ((bool)IsStep.IsChecked)
+                    result += picdownloader.Pow;
                 result += picdownloader.end;
-                CurrentRYAD = new Generator((int)chisl.Value, (int)znam.Value, Koeffs1.Text, Koeffs2.Text, result);
-
-
+                CurrentRYAD = new Generator((int)chisl.Value, (int)znam.Value, Koeffs1.Text, Koeffs2.Text, result, (bool)IsAlter.IsChecked, (bool)IsStep.IsChecked, (bool)IsRandom.IsChecked, (bool)IsWithout9.IsChecked);
+                
 
             }
             catch (Exception e)
@@ -226,7 +237,14 @@ namespace GENERATOR
         public static void setryad(Generator Curr, int id)
         {
             CurrentRYAD = Curr;
-
+            App.normal.m1.Visibility = Visibility.Visible;
+            App.normal.S1.Visibility = Visibility.Visible;
+            App.normal.N.Visibility = Visibility.Visible;
+            App.normal.m.Visibility = Visibility.Visible;
+            App.normal.sum1.Visibility = Visibility.Visible;
+            App.normal.sum.Visibility = Visibility.Visible;
+            App.normal.nchlen.Visibility = Visibility.Visible;
+            App.normal.nchlen1.Visibility = Visibility.Visible;
             App.normal.bi3 = new BitmapImage();
             App.normal.bi3.BeginInit();
             App.normal.bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + id + ".gif", UriKind.Absolute);
@@ -255,7 +273,19 @@ namespace GENERATOR
             App.normal.N.Content = "N =";
             App.normal.sum.Content = "Полная сумма ряда: ";
             App.normal.sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
-
+            if (CurrentRYAD.IsPow)
+            {
+                App.normal.N.Visibility = Visibility.Hidden;
+                App.normal.nchlen.Visibility = Visibility.Hidden;
+                App.normal.nchlen1.Visibility = Visibility.Hidden;
+                App.normal.S.Visibility = Visibility.Hidden;
+                App.normal.m.Visibility = Visibility.Hidden;
+                App.normal.m1.Visibility = Visibility.Hidden;
+                App.normal.S1.Visibility = Visibility.Hidden;
+                App.normal.sum.Visibility = Visibility.Hidden;
+                App.normal.sum1.Content = "Радиус сходипости: -a<|x|<a";
+                App.normal.shod.Content = "Область сходипости: |x-a|<1";
+            }
 
         }
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -283,8 +313,30 @@ namespace GENERATOR
             if (res == null) nchlen.Content = "Рассчитать n-ый член ряда: бесконечность";
             else
             {
-                nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString().Substring(0, 7);
+                nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString();
             }
         }
+
+        private void IsRandom_Checked(object sender, RoutedEventArgs e)
+        {
+            IsAlter.IsChecked = false;
+            IsStep.IsChecked = false;
+            IsWithout9.IsChecked = false;
+        }
+
+        private void IsWithout9_Checked(object sender, RoutedEventArgs e)
+        {
+            IsAlter.IsChecked = false;
+            IsStep.IsChecked = false;
+            IsRandom.IsChecked = false;
+        }
+
+        private void IsAlter_Checked(object sender, RoutedEventArgs e)
+        {
+            IsWithout9.IsChecked = false;
+            IsRandom.IsChecked = false;
+        }
+
+        
     }
 }

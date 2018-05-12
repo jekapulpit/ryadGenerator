@@ -261,7 +261,7 @@ namespace GENERATOR
         }
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            history T = new history(Resources["CurrentUser"].ToString());
+            history T = new history(Resources["CurrentUser"].ToString(), ((MenuItem)sender).Name.ToString());
             
             T.Show();
 

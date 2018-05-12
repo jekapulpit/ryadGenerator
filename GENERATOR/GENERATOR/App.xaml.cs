@@ -148,6 +148,15 @@ namespace GENERATOR
         }   //Проверка, является ли ряд сходящимся
         public double? CountN(int n)
         {
+            if (IsRandom)
+            {
+                Random T = new Random();
+                return (double?)((int)T.Next(0, 1) < 0.5 ? -1.0/n : 1.0/n);
+            }
+            if (IsWithout9)
+            {
+                return (double?)(1.0 / (n + n / 9));
+            }
             double num = 0;
             double dom = 0;
             string[] Coefs1 = this.NumCoeffs.Split(' ');
@@ -188,6 +197,9 @@ namespace GENERATOR
         } //Подсчет n-ного члена ряда
         public double? CountFullSum()
         {
+            Random T = new Random();
+            if (IsWithout9) return 80;
+          
             if (!IsConverge) return null;
             double result = 0;
             double num = 0;
@@ -209,7 +221,10 @@ namespace GENERATOR
                     num = dom = 0;
                     for (int j = 0; j <= PowOfNumerator; j++)
                     {
+
                         num += coefs1[j] * Math.Pow(i, j);
+                        if (IsRandom) num = (int)T.Next(0, 1) == 0 ? -1 : 1;
+
                     }
                     for (int j = 0; j <= PowOfDominator; j++)
                     {
@@ -230,8 +245,9 @@ namespace GENERATOR
         }//Подсчет полной суммы ряда
         public double? CountPartSum(int n)
         {
-           
+
                 double result = 0;
+                Random T = new Random();
                 double num = 0;
                 double dom = 0;
                 string[] Coefs1 = this.NumCoeffs.Split(' ');
@@ -250,11 +266,16 @@ namespace GENERATOR
                     num = dom = 0;
                     for (int j = 0; j <= PowOfNumerator; j++)
                     {
+
                         num += coefs1[j] * Math.Pow(i, j);
+                        if(IsRandom)    num = (int)T.Next(0, 1) == 0 ? -1 : 1;
                     }
                     for (int j = 0; j <= PowOfDominator; j++)
                     {
-                        dom += coefs2[j] * Math.Pow(i,j);
+                        if (IsWithout9)
+                            dom += i + i / 9;
+                        else
+                            dom += coefs2[j] * Math.Pow(i, j);
                     }
                     if (IsAlter)
                         result += (Math.Pow(-1, i) * (num / dom));
@@ -284,6 +305,10 @@ namespace GENERATOR
         public static string Pow = "%28x-a%29%5En";
         public static string skobka1 = "%28";
         public static string skobka2 = "%29";
+        public static string random = "%7B%5Cfrac%7Bs%7D%7Bn%7D%7D";
+        public static string without9 = "%7B%5Cfrac%7B1%7D%7Bn_%7B1%7D%7D%7D";
+        
+
         public static int index = 0;  //количество картинок (или количество всех рядов)   
         
         public static void getpic(string url)

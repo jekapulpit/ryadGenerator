@@ -25,12 +25,30 @@ namespace GENERATOR
     {
         public string currentuser;
         Generator CurrentRyad;
-         public history(string t)
+         public history(string t, string t1)
         {
             InitializeComponent();
             currentuser = t;
             using (RYAD list = new RYAD()) { 
                 var G = list.Ryads.GetAll(currentuser);
+                if (t1 == "menu2")
+                {
+                    G = from p in G
+                        where p.date > DateTime.Today.AddDays(-30)
+                        select p;
+                }
+                if (t1 == "menu3")
+                {
+                    G = from p in G
+                        where p.date > DateTime.Today.AddDays(-7)
+                        select p;
+                }
+                if (t1 == "menu4")
+                {
+                    G = from p in G
+                        where p.date == DateTime.Today
+                        select p;
+                }
                 picdownloader.index = list.Ryads.Count();
                 foreach (Generator m in G)
                 {

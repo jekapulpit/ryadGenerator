@@ -43,7 +43,12 @@
         <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
             <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
-                <MenuItem Header="История" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem> 
+            <MenuItem Header="История" Style="{DynamicResource Menuitems}">
+                <MenuItem x:Name="menu1" Header="За все время" Style="{DynamicResource Menuitems}"  Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem x:Name="menu2" Header="За этот месяц" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem x:Name="menu3" Header="За эту неделю" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem x:Name="menu4" Header="За сегодня" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem>
+            </MenuItem> 
                 
            
             <MenuItem Header="Справка" Style="{DynamicResource Menuitems}"></MenuItem>

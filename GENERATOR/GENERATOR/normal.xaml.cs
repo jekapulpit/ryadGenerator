@@ -99,7 +99,7 @@ namespace GENERATOR
                     S1.Visibility = Visibility.Visible;
                     N.Visibility = Visibility.Visible;
                     nchlen.Visibility = Visibility.Visible;
-                   nchlen1.Visibility = Visibility.Visible;
+                    nchlen1.Visibility = Visibility.Visible;
                    
                     sum.Visibility = Visibility.Visible;
                     S.Content = "Рассчитать";
@@ -111,7 +111,7 @@ namespace GENERATOR
                     shod.Content = "Сходимость: " + (CurrentRYAD.IsConverge ? "Сходится" : "Не сходится");
                     sum1.Content = "Рассчитать сумму первых N членов: ";
                     sum.Content = "Полная сумма ряда: ";
-                    sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
+                    sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString();
                     N.Content = "N =";
                     nchlen.Content = "Рассчитать n-ый член ряда: ";
                     nchlen1.Content = "n = ";
@@ -132,7 +132,6 @@ namespace GENERATOR
                     db.Ryads.Add(CurrentRYAD);
                     db.SaveChanges();
                 }
-
             }
             catch (Exception ex)
             {
@@ -143,7 +142,20 @@ namespace GENERATOR
         {
             try
             {
+               
                 string result = picdownloader.starturl;
+                if ((bool)IsRandom.IsChecked)
+                {
+                    result += picdownloader.random;
+                    CurrentRYAD = new Generator(0, 1, "1", "0 1", result, false, false, true, false);
+                    return;
+                }
+                if ((bool)IsWithout9.IsChecked)
+                {
+                    result += picdownloader.without9;
+                    CurrentRYAD = new Generator(0, 1, "1", "0 1", result, false, false, false, true);
+                    return;
+                }
                 string[] ch = this.Koeffs1.Text.Split(' ');
                 string[] zn = this.Koeffs2.Text.Split(' ');
                 if (ch.Length != chisl.Value + 1 || zn.Length != znam.Value + 1)
@@ -272,7 +284,7 @@ namespace GENERATOR
             App.normal.sum1.Content = "Рассчитать сумму первых N членов: ";
             App.normal.N.Content = "N =";
             App.normal.sum.Content = "Полная сумма ряда: ";
-            App.normal.sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString().Substring(0, 7);
+            App.normal.sum.Content += CurrentRYAD.CountFullSum() == null ? "бесконечность" : CurrentRYAD.CountFullSum().ToString();
             if (CurrentRYAD.IsPow)
             {
                 App.normal.N.Visibility = Visibility.Hidden;
@@ -290,11 +302,8 @@ namespace GENERATOR
         }
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            history T = new history(Resources["CurrentUser"].ToString());
-
+            history T = new history(Resources["CurrentUser"].ToString(), ((MenuItem)sender).Name.ToString());
             T.Show();
-
-
         }
         private void setsum(object sender, RoutedEventArgs e)
         {

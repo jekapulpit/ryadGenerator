@@ -100,10 +100,16 @@
     <Compile Include="normal.xaml.cs">
       <DependentUpon>normal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PassTest.xaml.cs">
+      <DependentUpon>PassTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="register.xaml.cs">
       <DependentUpon>register.xaml</DependentUpon>
     </Compile>
     <Compile Include="RYAD.cs" />
+    <Compile Include="Test1.xaml.cs">
+      <DependentUpon>Test1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="USERRepository.cs" />
     <Compile Include="Visualizer1.cs" />
     <Page Include="auth.xaml">
@@ -133,7 +139,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PassTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

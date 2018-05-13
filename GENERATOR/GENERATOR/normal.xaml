@@ -51,7 +51,7 @@
             </MenuItem>
 
             <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}"></MenuItem>
-            <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
+            <MenuItem Header="Понизить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}"></MenuItem>
 
         </Menu>
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">

@@ -1,12 +1,18 @@
-﻿<Window x:Class="GENERATOR.PassTest"
+﻿<Window x:Class="GENERATOR.PassTest" Background="{DynamicResource loginback}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GENERATOR"
         mc:Ignorable="d"
-        Title="PassTest" Height="450" Width="800">
+        Title="Подтвердите решение" Height="450" Width="800" >
     <Grid>
-        
+        <Button Content="Вперед!" Style="{DynamicResource reg}"  Margin="321,288,321,81" FontSize="18" FontFamily="Franklin Gothic Demi" Click="Button_Click"></Button>
+        <Label Style="{DynamicResource Labels}" Margin="203,136,201,167" Height="Auto" Width="Auto">
+            <Label.Content>
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap" FontSize="18">Внимание! При неудачной попытке пройти тест, вы сможете попробовать снова сколько угодно раз, но каждая попытка будет записываться в статистике профиля!</TextBlock>
+            </Label.Content>
+        </Label>
+        <Label Content="Отмена" Style="{DynamicResource ResourceKey=reg1}" Height="50px" Width="75" Margin="321,346,321,23" FontSize="18" FontFamily="Franklin Gothic Demi"/>
     </Grid>
 </Window>

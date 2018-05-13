@@ -23,5 +23,12 @@ namespace GENERATOR
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.TestWindow = new Test1();
+            App.TestWindow.Show();
+            this.Close();
+        }
     }
 }

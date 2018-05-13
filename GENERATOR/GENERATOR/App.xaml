@@ -4,6 +4,36 @@
              xmlns:local="clr-namespace:GENERATOR"
              StartupUri="auth.xaml">
     <Application.Resources>
+        <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 2  / СТИЛЬ ДЛЯ ЛЭЙБЛА -->
+        <Style x:Key="reg1" TargetType="Label">
+
+            <Setter Property="Foreground" Value="#EA4C87"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+
+                            <ColorAnimation Duration="0:0:0.3"
+                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                                           
+                                            To="White">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+
+                            <ColorAnimation Duration="0:0:0.5"
+                                            Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"                             
+                                            To="#EA4C87">
+                            </ColorAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- ПЕРЕНЕСТИ В ОТДЕЛЬНЫЙ ФАЙЛ 2 / СТИЛЬ ДЛЯ ЛЭЙБЛА -->
         <Style x:Key="reg" TargetType="Button">
             <Setter Property="Background" Value="#EA4C87"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>

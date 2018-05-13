@@ -287,6 +287,13 @@ namespace GENERATOR
                 nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString().Substring(0, 7);
             }
         }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            PassTest n = new PassTest();
+            n.Show();
+            this.Close();
+        }
     }
 
 }

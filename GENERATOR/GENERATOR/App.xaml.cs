@@ -20,6 +20,7 @@ namespace GENERATOR
         public static normal normal;
 
         public static USER CurrentUser;
+        public static Test1 TestWindow;
 
     }
 
@@ -37,16 +38,28 @@ namespace GENERATOR
         {
 
         }
-        public Test(USER user, DateTime date)
+        public Test(USER user, DateTime date, int[] ansss)
         {
+            Random T = new Random();
+            this.Id = T.Next(-1000000, 1000000).GetHashCode();
             N++;
-            Mark = TRY();
-            this.USER = user;
+            Mark = TRY(ansss);
+            this.USERusername = user.username;
             this.date = date;
         } //Конструктор, в немвызывается метод TRY()
-        public int TRY()
+        public int TRY(int [] ansss)
         {
-            return 0;
+            int result = 0;
+            int[] answrs = {1,2,1,3,4,1,3,1,1,1};
+            int[] ans = ansss;
+            for(int i = 0; i < 10; i++)
+            {
+                if (answrs[i] == ans[i])
+                    result++;
+            }
+
+
+            return result;
         }     //Метод, осуществляющий само тестирование
     }
     public class Generator
@@ -339,7 +352,7 @@ namespace GENERATOR
         public string password { get; set; }
        
        
-        public int lvl { get; set; }                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый, 3 - эксперт
+        public int lvl { get; set; }                    //"урвень" пользователя, 1 - новичок, 2 - продвинутый
         public USER(string Username, string Password, int Lvl)
         {
             username = Username;

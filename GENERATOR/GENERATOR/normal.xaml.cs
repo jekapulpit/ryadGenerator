@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace GENERATOR
 {
@@ -348,19 +349,27 @@ namespace GENERATOR
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Вы уверены?");
-            App.newbee = new MainWindow();
-
-            App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
-            using (USERContext m = new USERContext())
+            MessageBoxResult t = MessageBox.Show("Вы уверены?", "Предупреждение", MessageBoxButton.YesNo);
+            if (t == MessageBoxResult.Yes)
             {
-                m.Users.Find(App.CurrentUser.username).lvl = 0;
+                App.newbee = new MainWindow();
 
-                m.SaveChanges();
+                App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
+                using (USERContext m = new USERContext())
+                {
+                    m.Users.Find(App.CurrentUser.username).lvl = 0;
 
+                    m.SaveChanges();
+
+                }
+                App.newbee.Show();
+                this.Close();
             }
-            App.newbee.Show();
-            this.Close();
+            else if (t == MessageBoxResult.No)
+            {
+                // Do something else
+            }
+           
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)

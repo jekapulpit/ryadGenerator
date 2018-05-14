@@ -346,6 +346,26 @@ namespace GENERATOR
             IsRandom.IsChecked = false;
         }
 
-        
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Вы уверены?");
+            App.newbee = new MainWindow();
+
+            App.newbee.Resources.Add("CurrentUser", App.CurrentUser.username);
+            using (USERContext m = new USERContext())
+            {
+                m.Users.Find(App.CurrentUser.username).lvl = 0;
+
+                m.SaveChanges();
+
+            }
+            App.newbee.Show();
+            this.Close();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+             
+        }
     }
 }

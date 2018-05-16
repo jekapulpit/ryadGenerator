@@ -42,7 +42,7 @@
 
         <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
             <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
-            <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_3"></MenuItem>
             <MenuItem Header="История" Style="{DynamicResource Menuitems}">
                 <MenuItem x:Name="menu1" Header="За все время" Style="{DynamicResource Menuitems}"  Click="MenuItem_Click_1"></MenuItem>
                 <MenuItem x:Name="menu2" Header="За этот месяц" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem>
@@ -56,7 +56,7 @@
 
         </Menu>
         <Menu Style="{DynamicResource Menus}"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
-            <MenuItem Header="{DynamicResource CurrentUser}" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="{DynamicResource CurrentUser}" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_3" ></MenuItem>
             <MenuItem Header="Выйти" Style="{DynamicResource Menuitems}" Click="MenuItem_Click"></MenuItem>
 
 

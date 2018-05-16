@@ -84,7 +84,7 @@ namespace GENERATOR
                         using (USERContext m = new USERContext())
                         {
                             m.Users.Find(App.CurrentUser.username).lvl = 1;
-                      
+                            App.CurrentUser.lvl = 1; 
                             m.SaveChanges();
 
                         }

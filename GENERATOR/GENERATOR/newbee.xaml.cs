@@ -89,7 +89,7 @@ namespace GENERATOR
 
                     BitmapImage bi3 = new BitmapImage();
                     bi3.BeginInit();
-                    bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + (CurrentRYAD.Id+1) + ".gif", UriKind.Absolute);
+                    bi3.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\pics\\ryad" + (CurrentRYAD.Id+1) + ".gif", UriKind.Absolute);
                     bi3.EndInit();
 
                     Rimage.Source = bi3;
@@ -132,7 +132,7 @@ namespace GENERATOR
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Ошибка! Отсутствует подключение к интернету!");
             }
         }
         public void GetRyad()
@@ -218,6 +218,7 @@ namespace GENERATOR
             }
             catch (Exception e)
             {
+                MessageBox.Show("Ошибка! Неверный формат заполнения!");
                 Koeffs1.BorderBrush = new SolidColorBrush(Colors.Red);
                 Koeffs2.BorderBrush = new SolidColorBrush(Colors.Red);
                 return;
@@ -269,23 +270,37 @@ namespace GENERATOR
         }
         private void setsum(object sender, RoutedEventArgs e)
         {
+            try { 
             double? res = CurrentRYAD.CountPartSum(Convert.ToInt32(m.Text)); 
 
             if(res == null) sum1.Content = "Рассчитать сумму первых N членов: бесконечность";
             else
             {
-                sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString().Substring(0, 7);
+                sum1.Content = "Рассчитать сумму первых N членов: " + res.ToString();
+            }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка! Неверный формат заполнения!");
             }
         }
         private void setn(object sender, RoutedEventArgs e)
         {
-            double? res = CurrentRYAD.CountN(Convert.ToInt32(m1.Text));
-
-            if (res == null) nchlen.Content = "Рассчитать n-ый член ряда: бесконечность";
-            else
+            try
             {
-                nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString().Substring(0, 7);
+                double? res = CurrentRYAD.CountN(Convert.ToInt32(m1.Text));
+
+                if (res == null) nchlen.Content = "Рассчитать n-ый член ряда: бесконечность";
+                else
+                {
+                    nchlen.Content = "Рассчитать n-ый член ряда: " + res.ToString();
+                }
             }
+            catch
+            {
+                MessageBox.Show("Ошибка! Неверный формат заполнения!");
+            }
+
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
@@ -293,6 +308,12 @@ namespace GENERATOR
             PassTest n = new PassTest();
             n.Show();
             this.Close();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
         }
     }
 

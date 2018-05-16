@@ -1,0 +1,23 @@
+﻿<Window x:Class="GENERATOR.Profile"
+        Background="{DynamicResource loginback}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GENERATOR"
+        mc:Ignorable="d"
+        Title="Profile" Height="450" Width="800">
+    <Grid>
+        <Label FontSize="18" Content="Имя пользователя: " Style="{DynamicResource Labels}" Margin="239,54,343,335" Width="Auto"></Label>
+        <Label FontSize="18" x:Name="log" Content="dsdds" Style="{DynamicResource Labels}" Margin="469,54,139,321" Height="Auto" Width="Auto"></Label>
+        <Label FontSize="18" Content="Уровень: " Style="{DynamicResource Labels}" Margin="239,98,343,291" Width="Auto"/>
+        <Label FontSize="18" x:Name="lvl" Content="dsdds" Style="{DynamicResource Labels}" Margin="469,98,61,279" Height="Auto" Width="Auto"/>
+        <Label FontSize="18" Content="Рядов сгенерировано: " Style="{DynamicResource Labels}" Margin="239,142,335,247" Width="Auto"/>
+        <Label FontSize="18" x:Name="nryads" Content="dsdds" Style="{DynamicResource Labels}" Margin="469,142,253,231" Height="Auto"/>
+        <Label FontSize="18" Content="Попыток пройти тест: " Style="{DynamicResource Labels}" Margin="239,186,335,203" Width="Auto"/>
+        <Label FontSize="18" x:Name="tests" Content="dsdds" Style="{DynamicResource Labels}" Margin="469,186,253,185" Height="Auto"/>
+        <Label FontSize="18" Content="Средняя оценка: " Style="{DynamicResource Labels}" Margin="239,228,335,147" Width="Auto" Height="Auto"/>
+        <Label FontSize="18" x:Name="avg" Content="dsdds" Style="{DynamicResource Labels}" Margin="469,228,253,149" Height="Auto"/>
+        <Button Content="Сменить пароль" Style="{DynamicResource reg}" Margin="312,322,304,32" FontFamily="Franklin Gothic Demi" FontSize="18" Click="Button_Click"></Button>
+    </Grid>
+</Window>

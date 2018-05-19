@@ -65,7 +65,7 @@ namespace GENERATOR
                     all.Children.Add(border);
                     BitmapImage bi3 = new BitmapImage();
                     bi3.BeginInit();
-                    bi3.UriSource = new Uri("E:\\ЛАБОРАТОРНЫЕ И КОМПЛЕКТУЮЩИЕ\\Курсач\\GENERATOR\\GENERATOR\\bin\\Debug\\pics\\ryad" + m.Id + ".gif", UriKind.Absolute);
+                    bi3.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "\\pics\\ryad" +m.Id + ".gif", UriKind.Absolute);
                     bi3.EndInit();
                     Image K = new Image();
                     K.Margin = new Thickness(0, 10, 300, 10);

@@ -68,11 +68,8 @@ namespace GENERATOR
             {
                 if (validate(this, null))
                 {
-                    IEnumerable<USER> t = from p in Users.Users
-                            where p.username == Log.Text
-                            select p;
-
-                    if (t.Count() == 0)
+                    USER check = Users.Users.Find(Log.Text);
+                    if (check == null)
                     {
                         USER T = new USER(Log.Text, (Pass.Password).GetHashCode().ToString(), (bool)IsAlter.IsChecked ? 1 : 0);
                         Users.Users.Add(T);

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 namespace GENERATOR
 {
@@ -375,10 +376,11 @@ namespace GENERATOR
                 using (USERContext m = new USERContext())
                 {
                     m.Users.Find(App.CurrentUser.username).lvl = 0;
-
+                    
                     m.SaveChanges();
 
                 }
+                App.CurrentUser.lvl = 0; 
                 App.newbee.Show();
                 this.Close();
             }
@@ -391,7 +393,17 @@ namespace GENERATOR
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-             
+            try
+            {
+                Process SysInfo = new Process();
+                SysInfo.StartInfo.ErrorDialog = true;
+                SysInfo.StartInfo.FileName = "Руководство.chm";
+                SysInfo.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)

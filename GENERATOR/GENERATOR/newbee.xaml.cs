@@ -16,6 +16,7 @@ using System.Net;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 
 namespace GENERATOR
 {
@@ -314,6 +315,21 @@ namespace GENERATOR
         {
             Profile profile = new Profile();
             profile.Show();
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process SysInfo = new Process();
+                SysInfo.StartInfo.ErrorDialog = true;
+                SysInfo.StartInfo.FileName = "Руководство.chm";
+                SysInfo.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 

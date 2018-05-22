@@ -41,7 +41,6 @@
 
 
         <Menu Style="{DynamicResource Menus}" Grid.Row="0" Grid.Column="0">
-            <MenuItem Header="Файл" Style="{DynamicResource Menuitems}"></MenuItem>
             <MenuItem Header="Профиль" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_3"></MenuItem>
             <MenuItem Header="История" Style="{DynamicResource Menuitems}">
                 <MenuItem x:Name="menu1" Header="За все время" Style="{DynamicResource Menuitems}"  Click="MenuItem_Click_1"></MenuItem>
@@ -51,7 +50,7 @@
             </MenuItem> 
                 
            
-            <MenuItem Header="Справка" Style="{DynamicResource Menuitems}"></MenuItem>
+            <MenuItem Header="Справка" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_4"></MenuItem>
             <MenuItem Header="Повысить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}" Click="MenuItem_Click_2"></MenuItem>
 
         </Menu>

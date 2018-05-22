@@ -26,17 +26,23 @@ namespace GENERATOR
             {
                 log.Content = App.CurrentUser.username;
                 lvl.Content = App.CurrentUser.lvl == 1 ? "Продвинутый" : "Новичок";
-                nryads.Content = y.Ryads.Count();
+                IEnumerable<Generator> Ryads = from p in y.Ryads
+                                          where p.USERusername == App.CurrentUser.username
+                                          select p;
+                nryads.Content = Ryads.Count().ToString();
                 int avgr = 0;
-                foreach(Test r in y.Tests)
+                IEnumerable<Test> Tests = from p in y.Tests
+                                          where p.USERusername == App.CurrentUser.username
+                                          select p;
+                foreach (Test r in Tests)
                 {
                     avgr += r.Mark;
                 }
-                if(y.Tests.Count() != 0)
-                avg.Content = (avgr / y.Tests.Count()).ToString();
+                if(Tests.Count() != 0)
+                avg.Content = (avgr / Tests.Count()).ToString();
                 else
                 avg.Content = "---";
-                tests.Content = y.Tests.Count().ToString();
+                tests.Content = Tests.Count().ToString();
             }
 
         }

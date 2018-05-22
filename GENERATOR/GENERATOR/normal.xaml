@@ -49,7 +49,7 @@
                 <MenuItem x:Name="menu4" Header="За сегодня" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_1"></MenuItem>
             </MenuItem>
 
-            <MenuItem Header="Помощь" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_3"></MenuItem>
+            <MenuItem Header="Справка" Style="{DynamicResource Menuitems}" Click="MenuItem_Click_3"></MenuItem>
             <MenuItem Header="Понизить уровень" Style="{DynamicResource Menuitems}" Foreground="{DynamicResource ButtonAuth}" Click="MenuItem_Click_2"></MenuItem>
 
         </Menu>

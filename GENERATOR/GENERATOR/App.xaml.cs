@@ -50,7 +50,7 @@ namespace GENERATOR
         public int TRY(int [] ansss)
         {
             int result = 0;
-            int[] answrs = {1,2,1,3,4,1,3,1,1,1};
+            int[] answrs = {4,2,1,3,4,1,3,1,1,1};
             int[] ans = ansss;
             for(int i = 0; i < 10; i++)
             {
